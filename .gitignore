@@ -20,9 +20,8 @@
 !Config/DeltaGliderXR1Prefs.cfg
 
 # Track GMAT Mission Scripts and Documentation
-## Top Level Files and Mission Index
+## Top Level Subfolders and Mission Index
 !GMAT/
-!GMAT/Missions.md
-## Mission Scripts and Attached Documentation in Subfolders
-!GMAT/*/*.script
-!GMAT/*/*.md
+!GMAT/**
+## Exclude GMAT Script Backups in Subfolders
+GMAT/*/*.bak
