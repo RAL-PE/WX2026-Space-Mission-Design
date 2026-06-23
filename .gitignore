@@ -1,0 +1,28 @@
+#### Git Ignore File for ESATAN TMS Materials Database ####
+
+# INITIAL POLICY - Ignore All Files in Orbiter 2016 Directory
+*
+
+# Track LICENSE and this Git Ignore
+!LICENSE
+!.gitignore
+
+# Track Orbiter Core & Addon Configurations
+## Orbiter 2016 Core
+!Orbiter_NG.cfg
+## D3D9 Graphics Client
+!D3D9Client.cfg
+## XRSound Module
+!XRSound/
+!XRSound/XRSound.cfg
+## XR1 DeltaGlider Module
+!Config/
+!Config/DeltaGliderXR1Prefs.cfg
+
+# Track GMAT Mission Scripts and Documentation
+## Top Level Files and Mission Index
+!GMAT/
+!GMAT/Missions.md
+## Mission Scripts and Attached Documentation in Subfolders
+!GMAT/*/*.script
+!GMAT/*/*.md
