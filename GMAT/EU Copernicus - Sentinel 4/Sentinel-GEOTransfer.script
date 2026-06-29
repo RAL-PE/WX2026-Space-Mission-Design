@@ -1,0 +1,402 @@
+%
+%  Ex_GEOTransfer
+%
+%  Perform a transfer from a highly-elliptical inclined orbit to an equatorial 
+%  geosynchronous orbit.
+%
+
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft geoSat;
+
+geoSat.DateFormat = TAIModJulian;
+geoSat.Epoch = '21545';
+geoSat.CoordinateSystem = EarthMJ2000Eq;
+geoSat.DisplayStateType = Keplerian;
+geoSat.SMA = 6578.000000000003;
+geoSat.ECC = 0.001000000000001279;
+geoSat.INC = 28.49999999999999;
+geoSat.RAAN = 66.99999999999999;
+geoSat.AOP = 355.0000000000856;
+geoSat.TA = 249.9999999999882;
+geoSat.DryMass = 850;
+geoSat.Cd = 2.2;
+geoSat.Cr = 1.8;
+geoSat.DragArea = 15;
+geoSat.SRPArea = 1;
+geoSat.SPADDragScaleFactor = 1;
+geoSat.SPADSRPScaleFactor = 1;
+geoSat.AtmosDensityScaleFactor = 1;
+geoSat.ExtendedMassPropertiesModel = 'None';
+geoSat.NAIFId = -123456789;
+geoSat.NAIFIdReferenceFrame = -123456789;
+geoSat.OrbitColor = Red;
+geoSat.TargetColor = Teal;
+geoSat.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+geoSat.CdSigma = 1e+70;
+geoSat.CrSigma = 1e+70;
+geoSat.Id = 'SatId';
+geoSat.Attitude = CoordinateSystemFixed;
+geoSat.SPADSRPInterpolationMethod = Bilinear;
+geoSat.SPADSRPScaleFactorSigma = 1e+70;
+geoSat.SPADDragInterpolationMethod = Bilinear;
+geoSat.SPADDragScaleFactorSigma = 1e+70;
+geoSat.AtmosDensityScaleFactorSigma = 1e+70;
+geoSat.ModelFile = '../data/vehicle/models/aura.3ds';
+geoSat.ModelOffsetX = 0;
+geoSat.ModelOffsetY = 0;
+geoSat.ModelOffsetZ = 0;
+geoSat.ModelRotationX = 0;
+geoSat.ModelRotationY = 0;
+geoSat.ModelRotationZ = 0;
+geoSat.ModelScale = 3;
+geoSat.AttitudeDisplayStateType = 'Quaternion';
+geoSat.AttitudeRateDisplayStateType = 'AngularVelocity';
+geoSat.AttitudeCoordinateSystem = EarthMJ2000Eq;
+geoSat.EulerAngleSequence = '321';
+
+
+
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel AllForces;
+
+AllForces.CentralBody = Earth;
+AllForces.PrimaryBodies = {Earth};
+AllForces.SRP = On;
+AllForces.RelativisticCorrection = Off;
+AllForces.ErrorControl = RSSStep;
+AllForces.GravityField.Earth.Degree = 20;
+AllForces.GravityField.Earth.Order = 20;
+AllForces.GravityField.Earth.StmLimit = 100;
+AllForces.GravityField.Earth.PotentialFile = 'JGM2.cof';
+AllForces.GravityField.Earth.TideModel = 'None';
+AllForces.SRP.Flux = 1367;
+AllForces.SRP.SRPModel = Spherical;
+AllForces.SRP.Nominal_Sun = 149597870.691;
+AllForces.Drag.AtmosphereModel = MSISE90;
+AllForces.Drag.HistoricWeatherSource = 'ConstantFluxAndGeoMag';
+AllForces.Drag.PredictedWeatherSource = 'ConstantFluxAndGeoMag';
+AllForces.Drag.CSSISpaceWeatherFile = 'SpaceWeather-All-v1.2.txt';
+AllForces.Drag.SchattenFile = 'SchattenPredict.txt';
+AllForces.Drag.F107 = 150;
+AllForces.Drag.F107A = 150;
+AllForces.Drag.MagneticIndex = 3;
+AllForces.Drag.SchattenErrorModel = 'Nominal';
+AllForces.Drag.SchattenTimingModel = 'NominalCycle';
+AllForces.Drag.DragModel = 'Spherical';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator DefaultProp;
+
+DefaultProp.FM = AllForces;
+DefaultProp.Type = PrinceDormand78;
+DefaultProp.InitialStepSize = 60;
+DefaultProp.Accuracy = 9.999999999999999e-12;
+DefaultProp.MinStep = 0.001;
+DefaultProp.MaxStep = 86400;
+DefaultProp.MaxStepAttempts = 50;
+DefaultProp.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Burns
+%----------------------------------------
+
+Create ImpulsiveBurn TOI;
+
+TOI.CoordinateSystem = Local;
+TOI.Origin = Earth;
+TOI.Axes = VNB;
+TOI.Element1 = 0;
+TOI.Element2 = 0;
+TOI.Element3 = 0;
+TOI.DecrementMass = false;
+TOI.Isp = 300;
+TOI.GravitationalAccel = 9.81;
+
+Create ImpulsiveBurn MCC;
+
+MCC.CoordinateSystem = Local;
+MCC.Origin = Earth;
+MCC.Axes = VNB;
+MCC.Element1 = 0;
+MCC.Element2 = 0;
+MCC.Element3 = 0;
+MCC.DecrementMass = false;
+MCC.Isp = 300;
+MCC.GravitationalAccel = 9.81;
+
+Create ImpulsiveBurn MOI;
+
+MOI.CoordinateSystem = Local;
+MOI.Origin = Earth;
+MOI.Axes = VNB;
+MOI.Element1 = 0;
+MOI.Element2 = 0;
+MOI.Element3 = 0;
+MOI.DecrementMass = false;
+MOI.Isp = 300;
+MOI.GravitationalAccel = 9.81;
+
+%----------------------------------------
+%---------- Solvers
+%----------------------------------------
+
+Create DifferentialCorrector DC;
+
+DC.ShowProgress = true;
+DC.ReportStyle = Normal;
+DC.ReportFile = 'DifferentialCorrectorDC1.data';
+DC.MaximumIterations = 25;
+DC.DerivativeMethod = ForwardDifference;
+DC.Algorithm = NewtonRaphson;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create OpenFramesInterface OFI_inertialView;
+
+OFI_inertialView.SolverIterations = Current;
+OFI_inertialView.UpperLeft = [ 0.09577603143418467 0.1446587537091988 ];
+OFI_inertialView.Size = [ 0.8285854616895875 0.6691394658753709 ];
+OFI_inertialView.RelativeZOrder = 799;
+OFI_inertialView.Maximized = false;
+
+OFI_inertialView.Add = {geoSat, Earth};
+OFI_inertialView.View = {inertial_View, Earth_View1, geoSat_View1};
+
+OFI_inertialView.CoordinateSystem = EarthMJ2000Eq;
+OFI_inertialView.DrawObject = [ true true ];
+OFI_inertialView.DrawTrajectory = [ true true ];
+OFI_inertialView.DrawAxes = [ false false ];
+OFI_inertialView.DrawXYPlane = [ false false ];
+OFI_inertialView.DrawLabel = [ true true ];
+OFI_inertialView.DrawUsePropLabel = [ false false ];
+OFI_inertialView.DrawCenterPoint = [ true true ];
+OFI_inertialView.DrawEndPoints = [ true true ];
+OFI_inertialView.DrawVelocity = [ false false ];
+OFI_inertialView.DrawGrid = [ false false ];
+OFI_inertialView.DrawLineWidth = [ 2 2 ];
+OFI_inertialView.DrawMarkerSize = [ 10 10 ];
+OFI_inertialView.DrawFontSize = [ 20 20 ];
+
+OFI_inertialView.Axes = On;
+OFI_inertialView.AxesLength = 12756.2726;
+OFI_inertialView.AxesLabels = On;
+OFI_inertialView.FrameLabel = Off;
+OFI_inertialView.XYPlane = On;
+OFI_inertialView.EclipticPlane = Off;
+OFI_inertialView.EnableStars = On;
+OFI_inertialView.StarCatalog = 'inp_StarsHYGv3.txt';
+OFI_inertialView.StarCount = 40000;
+OFI_inertialView.MinStarMag = -2;
+OFI_inertialView.MaxStarMag = 6;
+OFI_inertialView.MinStarPixels = 1;
+OFI_inertialView.MaxStarPixels = 10;
+OFI_inertialView.MinStarDimRatio = 0.5;
+OFI_inertialView.ShowPlot = true;
+OFI_inertialView.ShowToolbar = true;
+OFI_inertialView.SolverIterLastN = 1;
+OFI_inertialView.ShowVR = false;
+OFI_inertialView.PlaybackTimeScale = 3600;
+OFI_inertialView.MultisampleAntiAliasing = On;
+OFI_inertialView.MSAASamples = 2;
+OFI_inertialView.DrawFontPosition = {'Top-Right', 'Top-Right'};
+
+Create OpenFramesInterface OFI_fixedView;
+
+OFI_fixedView.SolverIterations = Current;
+OFI_fixedView.UpperLeft = [ 0 0 ];
+OFI_fixedView.Size = [ 0.8285854616895875 0.6691394658753709 ];
+OFI_fixedView.RelativeZOrder = 794;
+OFI_fixedView.Maximized = false;
+
+OFI_fixedView.Add = {geoSat, Earth};
+OFI_fixedView.View = {fixed_View, Earth_View2, geoSat_View2};
+
+OFI_fixedView.CoordinateSystem = EarthFixed;
+OFI_fixedView.DrawObject = [ true true ];
+OFI_fixedView.DrawTrajectory = [ true true ];
+OFI_fixedView.DrawAxes = [ false false ];
+OFI_fixedView.DrawXYPlane = [ false false ];
+OFI_fixedView.DrawLabel = [ true true ];
+OFI_fixedView.DrawUsePropLabel = [ false false ];
+OFI_fixedView.DrawCenterPoint = [ true true ];
+OFI_fixedView.DrawEndPoints = [ true true ];
+OFI_fixedView.DrawVelocity = [ false false ];
+OFI_fixedView.DrawGrid = [ false false ];
+OFI_fixedView.DrawLineWidth = [ 2 2 ];
+OFI_fixedView.DrawMarkerSize = [ 10 10 ];
+OFI_fixedView.DrawFontSize = [ 20 20 ];
+
+OFI_fixedView.Axes = On;
+OFI_fixedView.AxesLength = 12756.2726;
+OFI_fixedView.AxesLabels = On;
+OFI_fixedView.FrameLabel = Off;
+OFI_fixedView.XYPlane = On;
+OFI_fixedView.EclipticPlane = Off;
+OFI_fixedView.EnableStars = On;
+OFI_fixedView.StarCatalog = 'inp_StarsHYGv3.txt';
+OFI_fixedView.StarCount = 40000;
+OFI_fixedView.MinStarMag = -2;
+OFI_fixedView.MaxStarMag = 6;
+OFI_fixedView.MinStarPixels = 1;
+OFI_fixedView.MaxStarPixels = 10;
+OFI_fixedView.MinStarDimRatio = 0.5;
+OFI_fixedView.ShowPlot = true;
+OFI_fixedView.ShowToolbar = true;
+OFI_fixedView.SolverIterLastN = 1;
+OFI_fixedView.ShowVR = false;
+OFI_fixedView.PlaybackTimeScale = 3600;
+OFI_fixedView.MultisampleAntiAliasing = On;
+OFI_fixedView.MSAASamples = 2;
+OFI_fixedView.DrawFontPosition = {'Top-Right', 'Top-Right'};
+
+%----------------------------------------
+%---------- Arrays, Variables, Strings
+%----------------------------------------
+Create Variable I J lowerBound upperBound;
+lowerBound = -119;
+upperBound = -117.5;
+
+
+
+
+%----------------------------------------
+%---------- Objects Views
+%----------------------------------------
+
+Create OpenFramesView inertial_View;
+
+inertial_View.ViewFrame = CoordinateSystem;
+inertial_View.ViewTrajectory = Off;
+inertial_View.InertialFrame = Off;
+inertial_View.SetDefaultLocation = On;
+
+inertial_View.DefaultEye = [ -90000 -90000 20000 ];
+inertial_View.DefaultCenter = [ 0 0 0 ];
+inertial_View.DefaultUp = [ 0 0 1 ];
+inertial_View.SetCurrentLocation = On;
+inertial_View.CurrentEye = [ 125890.4310432438 8105.104590800463 26189.81961217885 ];
+inertial_View.CurrentCenter = [ 0 -7.275957614183426e-12 -3.637978807091713e-12 ];
+inertial_View.CurrentUp = [ -0.1965426781738903 -0.09923358266681825 0.9754607484298599 ];
+inertial_View.FOVy = 45;
+
+Create OpenFramesView fixed_View;
+
+fixed_View.ViewFrame = CoordinateSystem;
+fixed_View.ViewTrajectory = Off;
+fixed_View.InertialFrame = Off;
+fixed_View.SetDefaultLocation = On;
+
+fixed_View.DefaultEye = [ -24000 -60000 0 ];
+fixed_View.DefaultCenter = [ 0 0 0 ];
+fixed_View.DefaultUp = [ 0 0 1 ];
+fixed_View.SetCurrentLocation = On;
+fixed_View.CurrentEye = [ -24000 -59999.99999999999 0 ];
+fixed_View.CurrentCenter = [ 0 0 0 ];
+fixed_View.CurrentUp = [ 0 0 1 ];
+fixed_View.FOVy = 45;
+
+Create OpenFramesView Earth_View1;
+
+Earth_View1.ViewFrame = Earth;
+Earth_View1.ViewTrajectory = Off;
+Earth_View1.InertialFrame = Off;
+Earth_View1.SetDefaultLocation = Off;
+Earth_View1.SetCurrentLocation = On;
+Earth_View1.CurrentEye = [ 98057.88837022378 78820.88240746278 42732.92253057926 ];
+Earth_View1.CurrentCenter = [ 58.3212739637238 44.28689048963133 -214.3148343060821 ];
+Earth_View1.CurrentUp = [ -0.2575109093082197 -0.1955436955564194 0.9462826188382583 ];
+Earth_View1.FOVy = 45;
+
+Create OpenFramesView Earth_View2;
+
+Earth_View2.ViewFrame = Earth;
+Earth_View2.ViewTrajectory = Off;
+Earth_View2.InertialFrame = Off;
+Earth_View2.SetDefaultLocation = Off;
+Earth_View2.SetCurrentLocation = Off;
+Earth_View2.FOVy = 45;
+
+Create OpenFramesView geoSat_View1;
+
+geoSat_View1.ViewFrame = geoSat;
+geoSat_View1.ViewTrajectory = Off;
+geoSat_View1.InertialFrame = Off;
+geoSat_View1.LookAtFrame = Earth;
+geoSat_View1.ShortestAngle = Off;
+geoSat_View1.SetDefaultLocation = Off;
+geoSat_View1.SetCurrentLocation = Off;
+geoSat_View1.FOVy = 45;
+
+Create OpenFramesView geoSat_View2;
+
+geoSat_View2.ViewFrame = geoSat;
+geoSat_View2.ViewTrajectory = Off;
+geoSat_View2.InertialFrame = On;
+geoSat_View2.LookAtFrame = Earth;
+geoSat_View2.ShortestAngle = Off;
+geoSat_View2.SetDefaultLocation = Off;
+geoSat_View2.SetCurrentLocation = Off;
+geoSat_View2.FOVy = 45;
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+BeginMissionSequence;
+Propagate 'Prop to Z Crossing' DefaultProp(geoSat) {geoSat.Z = 0, StopTolerance = 1e-05};
+
+Target 'Raise Apogee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary TOI.V' DC(TOI.Element1 = 1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Apply TOI' TOI(geoSat);
+   Propagate 'Prop To Apogee' DefaultProp(geoSat) {geoSat.Apoapsis};
+   Achieve 'Achieve RMAG' DC(geoSat.RMAG = 85000, {Tolerance = .1});
+EndTarget;  % For targeter DC
+
+Propagate 'Prop to Perigee' DefaultProp(geoSat) {geoSat.Earth.Periapsis};
+Propagate 'Prop to Plane Crossing' DefaultProp(geoSat) {geoSat.Z = 0, StopTolerance = 1e-05};
+
+Target 'Change Plane/Perigee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary MCC.V' DC(MCC.Element1 = 0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary MCC.N' DC(MCC.Element2 = 0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Apply MCC' MCC(geoSat);
+   Propagate 'Prop to Perigee' DefaultProp(geoSat) {geoSat.Periapsis};
+   Achieve 'Apply INC' DC(geoSat.EarthMJ2000Eq.INC = 2, {Tolerance = .001});
+   Achieve 'Achieve RMAG' DC(geoSat.RMAG = 42195, {Tolerance = .001});
+EndTarget;  % For targeter DC
+
+Target 'Correct Longitude' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary MOI.V' DC(MOI.Element1 = 0, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Apply MOI' MOI(geoSat);
+   Propagate 'Prop to Perigee' DefaultProp(geoSat) {geoSat.Periapsis};
+   Achieve 'AchieveLongitude' DC(geoSat.Earth.Longitude = 0, {Tolerance = 0.1});
+EndTarget;  % For targeter DC
+
+Target 'Lower Apogee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary MOI.V' DC(MOI.Element1 = -0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Apply MOI' MOI(geoSat);
+   Achieve 'Achieve SMA' DC(geoSat.Earth.SMA = 42166.90, {Tolerance = .001});
+EndTarget;  % For targeter DC
+
+Propagate 'Prop 10 days' DefaultProp(geoSat) {geoSat.ElapsedDays = 10};
+
+
+
+
+
+
+
+
+
+
