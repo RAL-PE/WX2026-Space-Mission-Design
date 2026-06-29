@@ -453,4 +453,4 @@ SOLSTICE2 = SOLSTICE1;
 SOLSTICE2.TA = SOLSTICE1.TA + 120;
 SOLSTICE3 = SOLSTICE2;
 SOLSTICE3.TA = SOLSTICE2.TA + 120;
-Propagate EarthOrbitProp(Formation1) {SOLSTICE1.ElapsedDays = 2};
+Propagate 'Prop 2 Days' EarthOrbitProp(Formation1) {SOLSTICE1.ElapsedDays = 2};

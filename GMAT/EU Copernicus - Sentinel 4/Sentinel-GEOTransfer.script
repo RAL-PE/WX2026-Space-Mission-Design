@@ -1,62 +1,79 @@
-%
-%  Ex_GEOTransfer
-%
-%  Perform a transfer from a highly-elliptical inclined orbit to an equatorial 
-%  geosynchronous orbit.
-%
+%General Mission Analysis Tool(GMAT) Script
+%Created: 2026-06-29 16:34:22
 
 
 %----------------------------------------
 %---------- Spacecraft
 %----------------------------------------
 
-Create Spacecraft geoSat;
+Create Spacecraft Sentinel4A;
+Sentinel4A.DateFormat = UTCGregorian;
+Sentinel4A.Epoch = '25 Jul 2025 11:59:28.000';
+Sentinel4A.CoordinateSystem = EarthMJ2000Eq;
+Sentinel4A.DisplayStateType = Keplerian;
+Sentinel4A.SMA = 6600.000000000001;
+Sentinel4A.ECC = 2.457601234778306e-16;
+Sentinel4A.INC = 5.159699999999978;
+Sentinel4A.RAAN = 55.00000000000001;
+Sentinel4A.AOP = 0;
+Sentinel4A.TA = 0;
+Sentinel4A.DryMass = 850;
+Sentinel4A.Cd = 2.2;
+Sentinel4A.Cr = 1.8;
+Sentinel4A.DragArea = 15;
+Sentinel4A.SRPArea = 1;
+Sentinel4A.SPADDragScaleFactor = 1;
+Sentinel4A.SPADSRPScaleFactor = 1;
+Sentinel4A.AtmosDensityScaleFactor = 1;
+Sentinel4A.ExtendedMassPropertiesModel = 'None';
+Sentinel4A.NAIFId = -123456789;
+Sentinel4A.NAIFIdReferenceFrame = -123456789;
+Sentinel4A.OrbitColor = Red;
+Sentinel4A.TargetColor = Teal;
+Sentinel4A.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+Sentinel4A.CdSigma = 1e+70;
+Sentinel4A.CrSigma = 1e+70;
+Sentinel4A.Id = 'SatId';
+Sentinel4A.Attitude = CoordinateSystemFixed;
+Sentinel4A.SPADSRPInterpolationMethod = Bilinear;
+Sentinel4A.SPADSRPScaleFactorSigma = 1e+70;
+Sentinel4A.SPADDragInterpolationMethod = Bilinear;
+Sentinel4A.SPADDragScaleFactorSigma = 1e+70;
+Sentinel4A.AtmosDensityScaleFactorSigma = 1e+70;
+Sentinel4A.ModelFile = '../data/vehicle/models/aura.3ds';
+Sentinel4A.ModelOffsetX = 0;
+Sentinel4A.ModelOffsetY = 0;
+Sentinel4A.ModelOffsetZ = 0;
+Sentinel4A.ModelRotationX = 0;
+Sentinel4A.ModelRotationY = 0;
+Sentinel4A.ModelRotationZ = 0;
+Sentinel4A.ModelScale = 3;
+Sentinel4A.AttitudeDisplayStateType = 'Quaternion';
+Sentinel4A.AttitudeRateDisplayStateType = 'AngularVelocity';
+Sentinel4A.AttitudeCoordinateSystem = EarthMJ2000Eq;
+Sentinel4A.EulerAngleSequence = '321';
 
-geoSat.DateFormat = TAIModJulian;
-geoSat.Epoch = '21545';
-geoSat.CoordinateSystem = EarthMJ2000Eq;
-geoSat.DisplayStateType = Keplerian;
-geoSat.SMA = 6578.000000000003;
-geoSat.ECC = 0.001000000000001279;
-geoSat.INC = 28.49999999999999;
-geoSat.RAAN = 66.99999999999999;
-geoSat.AOP = 355.0000000000856;
-geoSat.TA = 249.9999999999882;
-geoSat.DryMass = 850;
-geoSat.Cd = 2.2;
-geoSat.Cr = 1.8;
-geoSat.DragArea = 15;
-geoSat.SRPArea = 1;
-geoSat.SPADDragScaleFactor = 1;
-geoSat.SPADSRPScaleFactor = 1;
-geoSat.AtmosDensityScaleFactor = 1;
-geoSat.ExtendedMassPropertiesModel = 'None';
-geoSat.NAIFId = -123456789;
-geoSat.NAIFIdReferenceFrame = -123456789;
-geoSat.OrbitColor = Red;
-geoSat.TargetColor = Teal;
-geoSat.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
-geoSat.CdSigma = 1e+70;
-geoSat.CrSigma = 1e+70;
-geoSat.Id = 'SatId';
-geoSat.Attitude = CoordinateSystemFixed;
-geoSat.SPADSRPInterpolationMethod = Bilinear;
-geoSat.SPADSRPScaleFactorSigma = 1e+70;
-geoSat.SPADDragInterpolationMethod = Bilinear;
-geoSat.SPADDragScaleFactorSigma = 1e+70;
-geoSat.AtmosDensityScaleFactorSigma = 1e+70;
-geoSat.ModelFile = '../data/vehicle/models/aura.3ds';
-geoSat.ModelOffsetX = 0;
-geoSat.ModelOffsetY = 0;
-geoSat.ModelOffsetZ = 0;
-geoSat.ModelRotationX = 0;
-geoSat.ModelRotationY = 0;
-geoSat.ModelRotationZ = 0;
-geoSat.ModelScale = 3;
-geoSat.AttitudeDisplayStateType = 'Quaternion';
-geoSat.AttitudeRateDisplayStateType = 'AngularVelocity';
-geoSat.AttitudeCoordinateSystem = EarthMJ2000Eq;
-geoSat.EulerAngleSequence = '321';
+%----------------------------------------
+%---------- GroundStations
+%----------------------------------------
+
+Create GroundStation GSDarmstrat;
+GSDarmstrat.OrbitColor = [0 255 0];
+GSDarmstrat.TargetColor = DarkGray;
+GSDarmstrat.CentralBody = Earth;
+GSDarmstrat.StateType = Spherical;
+GSDarmstrat.HorizonReference = Sphere;
+GSDarmstrat.Location1 = 49.8692;
+GSDarmstrat.Location2 = 8.6198;
+GSDarmstrat.Location3 = 0;
+GSDarmstrat.Id = 'Darmstrat';
+GSDarmstrat.IonosphereModel = 'None';
+GSDarmstrat.TroposphereModel = 'None';
+GSDarmstrat.DataSource = 'Constant';
+GSDarmstrat.Temperature = 295.1;
+GSDarmstrat.Pressure = 1013.5;
+GSDarmstrat.Humidity = 55;
+GSDarmstrat.MinimumElevationAngle = 7;
 
 
 
@@ -66,9 +83,9 @@ geoSat.EulerAngleSequence = '321';
 %----------------------------------------
 
 Create ForceModel AllForces;
-
 AllForces.CentralBody = Earth;
 AllForces.PrimaryBodies = {Earth};
+AllForces.PointMasses = {Jupiter, Luna, Mars, Sun, Venus};
 AllForces.SRP = On;
 AllForces.RelativisticCorrection = Off;
 AllForces.ErrorControl = RSSStep;
@@ -96,63 +113,82 @@ AllForces.Drag.DragModel = 'Spherical';
 %---------- Propagators
 %----------------------------------------
 
-Create Propagator DefaultProp;
-
-DefaultProp.FM = AllForces;
-DefaultProp.Type = PrinceDormand78;
-DefaultProp.InitialStepSize = 60;
-DefaultProp.Accuracy = 9.999999999999999e-12;
-DefaultProp.MinStep = 0.001;
-DefaultProp.MaxStep = 86400;
-DefaultProp.MaxStepAttempts = 50;
-DefaultProp.StopIfAccuracyIsViolated = true;
+Create Propagator EarthOrbitProp;
+EarthOrbitProp.FM = AllForces;
+EarthOrbitProp.Type = PrinceDormand78;
+EarthOrbitProp.InitialStepSize = 60;
+EarthOrbitProp.Accuracy = 9.999999999999999e-12;
+EarthOrbitProp.MinStep = 0.001;
+EarthOrbitProp.MaxStep = 24000;
+EarthOrbitProp.MaxStepAttempts = 50;
+EarthOrbitProp.StopIfAccuracyIsViolated = true;
 
 %----------------------------------------
 %---------- Burns
 %----------------------------------------
 
-Create ImpulsiveBurn TOI;
+Create ImpulsiveBurn Transfer;
+Transfer.CoordinateSystem = Local;
+Transfer.Origin = Earth;
+Transfer.Axes = VNB;
+Transfer.Element1 = 0;
+Transfer.Element2 = 0;
+Transfer.Element3 = 0;
+Transfer.DecrementMass = false;
+Transfer.Isp = 300;
+Transfer.GravitationalAccel = 9.81;
 
-TOI.CoordinateSystem = Local;
-TOI.Origin = Earth;
-TOI.Axes = VNB;
-TOI.Element1 = 0;
-TOI.Element2 = 0;
-TOI.Element3 = 0;
-TOI.DecrementMass = false;
-TOI.Isp = 300;
-TOI.GravitationalAccel = 9.81;
+Create ImpulsiveBurn Correction;
+Correction.CoordinateSystem = Local;
+Correction.Origin = Earth;
+Correction.Axes = VNB;
+Correction.Element1 = 0;
+Correction.Element2 = 0;
+Correction.Element3 = 0;
+Correction.DecrementMass = false;
+Correction.Isp = 300;
+Correction.GravitationalAccel = 9.81;
 
-Create ImpulsiveBurn MCC;
+Create ImpulsiveBurn Insertion;
+Insertion.CoordinateSystem = Local;
+Insertion.Origin = Earth;
+Insertion.Axes = VNB;
+Insertion.Element1 = 0;
+Insertion.Element2 = 0;
+Insertion.Element3 = 0;
+Insertion.DecrementMass = false;
+Insertion.Isp = 300;
+Insertion.GravitationalAccel = 9.81;
 
-MCC.CoordinateSystem = Local;
-MCC.Origin = Earth;
-MCC.Axes = VNB;
-MCC.Element1 = 0;
-MCC.Element2 = 0;
-MCC.Element3 = 0;
-MCC.DecrementMass = false;
-MCC.Isp = 300;
-MCC.GravitationalAccel = 9.81;
+%----------------------------------------
+%---------- EventLocators
+%----------------------------------------
 
-Create ImpulsiveBurn MOI;
-
-MOI.CoordinateSystem = Local;
-MOI.Origin = Earth;
-MOI.Axes = VNB;
-MOI.Element1 = 0;
-MOI.Element2 = 0;
-MOI.Element3 = 0;
-MOI.DecrementMass = false;
-MOI.Isp = 300;
-MOI.GravitationalAccel = 9.81;
+Create ContactLocator ContactLocator;
+ContactLocator.Target = Sentinel4A;
+ContactLocator.Filename = 'ContactLocator1.txt';
+ContactLocator.InputEpochFormat = 'TAIModJulian';
+ContactLocator.InitialEpoch = '21545';
+ContactLocator.StepSize = 10;
+ContactLocator.FinalEpoch = '21545.138';
+ContactLocator.UseLightTimeDelay = true;
+ContactLocator.UseStellarAberration = true;
+ContactLocator.WriteReport = true;
+ContactLocator.RunMode = Automatic;
+ContactLocator.UseEntireInterval = true;
+ContactLocator.Observers = {GSDarmstrat};
+ContactLocator.LightTimeDirection = Transmit;
+ContactLocator.LeftJustified = false;
+ContactLocator.ReportPrecision = 6;
+ContactLocator.ReportFormat = 'Legacy';
+ContactLocator.IntervalStepSize = 0;
+ContactLocator.ReportTimeFormat = 'UTCGregorian';
 
 %----------------------------------------
 %---------- Solvers
 %----------------------------------------
 
 Create DifferentialCorrector DC;
-
 DC.ShowProgress = true;
 DC.ReportStyle = Normal;
 DC.ReportFile = 'DifferentialCorrectorDC1.data';
@@ -164,141 +200,89 @@ DC.Algorithm = NewtonRaphson;
 %---------- Subscribers
 %----------------------------------------
 
-Create OpenFramesInterface OFI_inertialView;
+Create OpenFramesInterface EarthOrbitView;
+EarthOrbitView.SolverIterations = Current;
+EarthOrbitView.UpperLeft = [ 0 0.4985401459854015 ];
+EarthOrbitView.Size = [ 0.9979654120040692 0.4985401459854015 ];
+EarthOrbitView.RelativeZOrder = 1132;
+EarthOrbitView.Maximized = false;
+EarthOrbitView.Add = {Sentinel4A, GSDarmstrat, Earth, Luna, Sun};
+EarthOrbitView.View = {OrbitView, EarthView, StationView};
+EarthOrbitView.CoordinateSystem = EarthMJ2000Eq;
+EarthOrbitView.DrawObject = [ true false true true true ];
+EarthOrbitView.DrawTrajectory = [ true false true true true ];
+EarthOrbitView.DrawAxes = [ false false false false false ];
+EarthOrbitView.DrawXYPlane = [ false false false false false ];
+EarthOrbitView.DrawLabel = [ true true true true true ];
+EarthOrbitView.DrawUsePropLabel = [ false false false false false ];
+EarthOrbitView.DrawCenterPoint = [ true true true false false ];
+EarthOrbitView.DrawEndPoints = [ true false true false false ];
+EarthOrbitView.DrawVelocity = [ false false false false false ];
+EarthOrbitView.DrawGrid = [ false false false false false ];
+EarthOrbitView.DrawLineWidth = [ 2 2 2 2 2 ];
+EarthOrbitView.DrawMarkerSize = [ 10 10 10 10 10 ];
+EarthOrbitView.DrawFontSize = [ 20 20 20 20 20 ];
 
-OFI_inertialView.SolverIterations = Current;
-OFI_inertialView.UpperLeft = [ 0.09577603143418467 0.1446587537091988 ];
-OFI_inertialView.Size = [ 0.8285854616895875 0.6691394658753709 ];
-OFI_inertialView.RelativeZOrder = 799;
-OFI_inertialView.Maximized = false;
+EarthOrbitView.Axes = On;
+EarthOrbitView.AxesLength = 12756.2726;
+EarthOrbitView.AxesLabels = On;
+EarthOrbitView.FrameLabel = Off;
+EarthOrbitView.XYPlane = Off;
+EarthOrbitView.EclipticPlane = Off;
+EarthOrbitView.EnableStars = Off;
+EarthOrbitView.StarCatalog = 'inp_StarsHYGv3.txt';
+EarthOrbitView.StarCount = 40000;
+EarthOrbitView.MinStarMag = -2;
+EarthOrbitView.MaxStarMag = 6;
+EarthOrbitView.MinStarPixels = 1;
+EarthOrbitView.MaxStarPixels = 10;
+EarthOrbitView.MinStarDimRatio = 0.5;
+EarthOrbitView.ShowPlot = true;
+EarthOrbitView.ShowToolbar = true;
+EarthOrbitView.SolverIterLastN = 1;
+EarthOrbitView.ShowVR = false;
+EarthOrbitView.PlaybackTimeScale = 3600;
+EarthOrbitView.MultisampleAntiAliasing = On;
+EarthOrbitView.MSAASamples = 2;
+EarthOrbitView.DrawFontPosition = {'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right'};
 
-OFI_inertialView.Add = {geoSat, Earth};
-OFI_inertialView.View = {inertial_View, Earth_View1, geoSat_View1};
-
-OFI_inertialView.CoordinateSystem = EarthMJ2000Eq;
-OFI_inertialView.DrawObject = [ true true ];
-OFI_inertialView.DrawTrajectory = [ true true ];
-OFI_inertialView.DrawAxes = [ false false ];
-OFI_inertialView.DrawXYPlane = [ false false ];
-OFI_inertialView.DrawLabel = [ true true ];
-OFI_inertialView.DrawUsePropLabel = [ false false ];
-OFI_inertialView.DrawCenterPoint = [ true true ];
-OFI_inertialView.DrawEndPoints = [ true true ];
-OFI_inertialView.DrawVelocity = [ false false ];
-OFI_inertialView.DrawGrid = [ false false ];
-OFI_inertialView.DrawLineWidth = [ 2 2 ];
-OFI_inertialView.DrawMarkerSize = [ 10 10 ];
-OFI_inertialView.DrawFontSize = [ 20 20 ];
-
-OFI_inertialView.Axes = On;
-OFI_inertialView.AxesLength = 12756.2726;
-OFI_inertialView.AxesLabels = On;
-OFI_inertialView.FrameLabel = Off;
-OFI_inertialView.XYPlane = On;
-OFI_inertialView.EclipticPlane = Off;
-OFI_inertialView.EnableStars = On;
-OFI_inertialView.StarCatalog = 'inp_StarsHYGv3.txt';
-OFI_inertialView.StarCount = 40000;
-OFI_inertialView.MinStarMag = -2;
-OFI_inertialView.MaxStarMag = 6;
-OFI_inertialView.MinStarPixels = 1;
-OFI_inertialView.MaxStarPixels = 10;
-OFI_inertialView.MinStarDimRatio = 0.5;
-OFI_inertialView.ShowPlot = true;
-OFI_inertialView.ShowToolbar = true;
-OFI_inertialView.SolverIterLastN = 1;
-OFI_inertialView.ShowVR = false;
-OFI_inertialView.PlaybackTimeScale = 3600;
-OFI_inertialView.MultisampleAntiAliasing = On;
-OFI_inertialView.MSAASamples = 2;
-OFI_inertialView.DrawFontPosition = {'Top-Right', 'Top-Right'};
-
-Create OpenFramesInterface OFI_fixedView;
-
-OFI_fixedView.SolverIterations = Current;
-OFI_fixedView.UpperLeft = [ 0 0 ];
-OFI_fixedView.Size = [ 0.8285854616895875 0.6691394658753709 ];
-OFI_fixedView.RelativeZOrder = 794;
-OFI_fixedView.Maximized = false;
-
-OFI_fixedView.Add = {geoSat, Earth};
-OFI_fixedView.View = {fixed_View, Earth_View2, geoSat_View2};
-
-OFI_fixedView.CoordinateSystem = EarthFixed;
-OFI_fixedView.DrawObject = [ true true ];
-OFI_fixedView.DrawTrajectory = [ true true ];
-OFI_fixedView.DrawAxes = [ false false ];
-OFI_fixedView.DrawXYPlane = [ false false ];
-OFI_fixedView.DrawLabel = [ true true ];
-OFI_fixedView.DrawUsePropLabel = [ false false ];
-OFI_fixedView.DrawCenterPoint = [ true true ];
-OFI_fixedView.DrawEndPoints = [ true true ];
-OFI_fixedView.DrawVelocity = [ false false ];
-OFI_fixedView.DrawGrid = [ false false ];
-OFI_fixedView.DrawLineWidth = [ 2 2 ];
-OFI_fixedView.DrawMarkerSize = [ 10 10 ];
-OFI_fixedView.DrawFontSize = [ 20 20 ];
-
-OFI_fixedView.Axes = On;
-OFI_fixedView.AxesLength = 12756.2726;
-OFI_fixedView.AxesLabels = On;
-OFI_fixedView.FrameLabel = Off;
-OFI_fixedView.XYPlane = On;
-OFI_fixedView.EclipticPlane = Off;
-OFI_fixedView.EnableStars = On;
-OFI_fixedView.StarCatalog = 'inp_StarsHYGv3.txt';
-OFI_fixedView.StarCount = 40000;
-OFI_fixedView.MinStarMag = -2;
-OFI_fixedView.MaxStarMag = 6;
-OFI_fixedView.MinStarPixels = 1;
-OFI_fixedView.MaxStarPixels = 10;
-OFI_fixedView.MinStarDimRatio = 0.5;
-OFI_fixedView.ShowPlot = true;
-OFI_fixedView.ShowToolbar = true;
-OFI_fixedView.SolverIterLastN = 1;
-OFI_fixedView.ShowVR = false;
-OFI_fixedView.PlaybackTimeScale = 3600;
-OFI_fixedView.MultisampleAntiAliasing = On;
-OFI_fixedView.MSAASamples = 2;
-OFI_fixedView.DrawFontPosition = {'Top-Right', 'Top-Right'};
-
-%----------------------------------------
-%---------- Arrays, Variables, Strings
-%----------------------------------------
-Create Variable I J lowerBound upperBound;
-lowerBound = -119;
-upperBound = -117.5;
-
-
-
+Create GroundTrack GroundTrackPlot;
+GroundTrackPlot.SolverIterations = Current;
+GroundTrackPlot.UpperLeft = [ 0 0 ];
+GroundTrackPlot.Size = [ 0.9979654120040692 0.4985401459854015 ];
+GroundTrackPlot.RelativeZOrder = 1139;
+GroundTrackPlot.Maximized = false;
+GroundTrackPlot.CentralBody = Earth;
+GroundTrackPlot.Add = {GSDarmstrat, Sentinel4A};
+GroundTrackPlot.DataCollectFrequency = 1;
+GroundTrackPlot.UpdatePlotFrequency = 50;
+GroundTrackPlot.NumPointsToRedraw = 0;
+GroundTrackPlot.MaxPlotPoints = 20000;
+GroundTrackPlot.ShowPlot = true;
 
 %----------------------------------------
 %---------- Objects Views
 %----------------------------------------
 
-Create OpenFramesView inertial_View;
-
-inertial_View.ViewFrame = CoordinateSystem;
-inertial_View.ViewTrajectory = Off;
-inertial_View.InertialFrame = Off;
-inertial_View.SetDefaultLocation = On;
-
-inertial_View.DefaultEye = [ -90000 -90000 20000 ];
-inertial_View.DefaultCenter = [ 0 0 0 ];
-inertial_View.DefaultUp = [ 0 0 1 ];
-inertial_View.SetCurrentLocation = On;
-inertial_View.CurrentEye = [ 125890.4310432438 8105.104590800463 26189.81961217885 ];
-inertial_View.CurrentCenter = [ 0 -7.275957614183426e-12 -3.637978807091713e-12 ];
-inertial_View.CurrentUp = [ -0.1965426781738903 -0.09923358266681825 0.9754607484298599 ];
-inertial_View.FOVy = 45;
+Create OpenFramesView OrbitView;
+OrbitView.ViewFrame = CoordinateSystem;
+OrbitView.ViewTrajectory = Off;
+OrbitView.InertialFrame = Off;
+OrbitView.SetDefaultLocation = On;
+OrbitView.DefaultEye = [ -60000 -60000 60000 ];
+OrbitView.DefaultCenter = [ 0 0 0 ];
+OrbitView.DefaultUp = [ 0 0 1 ];
+OrbitView.SetCurrentLocation = On;
+OrbitView.CurrentEye = [ -90000.00000000003 -89999.99999999997 20000.00000000002 ];
+OrbitView.CurrentCenter = [ -1.455191522836685e-11 4.365574568510056e-11 3.637978807091713e-12 ];
+OrbitView.CurrentUp = [ 0.1097642599896904 0.1097642599896904 0.9878783399072131 ];
+OrbitView.FOVy = 45;
 
 Create OpenFramesView fixed_View;
-
 fixed_View.ViewFrame = CoordinateSystem;
 fixed_View.ViewTrajectory = Off;
 fixed_View.InertialFrame = Off;
 fixed_View.SetDefaultLocation = On;
-
 fixed_View.DefaultEye = [ -24000 -60000 0 ];
 fixed_View.DefaultCenter = [ 0 0 0 ];
 fixed_View.DefaultUp = [ 0 0 1 ];
@@ -308,20 +292,23 @@ fixed_View.CurrentCenter = [ 0 0 0 ];
 fixed_View.CurrentUp = [ 0 0 1 ];
 fixed_View.FOVy = 45;
 
-Create OpenFramesView Earth_View1;
-
-Earth_View1.ViewFrame = Earth;
-Earth_View1.ViewTrajectory = Off;
-Earth_View1.InertialFrame = Off;
-Earth_View1.SetDefaultLocation = Off;
-Earth_View1.SetCurrentLocation = On;
-Earth_View1.CurrentEye = [ 98057.88837022378 78820.88240746278 42732.92253057926 ];
-Earth_View1.CurrentCenter = [ 58.3212739637238 44.28689048963133 -214.3148343060821 ];
-Earth_View1.CurrentUp = [ -0.2575109093082197 -0.1955436955564194 0.9462826188382583 ];
-Earth_View1.FOVy = 45;
+Create OpenFramesView EarthView;
+EarthView.ViewFrame = Sentinel4A;
+EarthView.ViewTrajectory = Off;
+EarthView.InertialFrame = Off;
+EarthView.LookAtFrame = Earth;
+EarthView.ShortestAngle = Off;
+EarthView.SetDefaultLocation = On;
+EarthView.DefaultEye = [ 0 -7000 2000 ];
+EarthView.DefaultCenter = [ 0 0 0 ];
+EarthView.DefaultUp = [ 0 0 1 ];
+EarthView.SetCurrentLocation = On;
+EarthView.CurrentEye = [ 0 -7000.000000000002 1999.999999999999 ];
+EarthView.CurrentCenter = [ 0 0 0 ];
+EarthView.CurrentUp = [ 0 0.2747211278973779 0.9615239476408232 ];
+EarthView.FOVy = 45;
 
 Create OpenFramesView Earth_View2;
-
 Earth_View2.ViewFrame = Earth;
 Earth_View2.ViewTrajectory = Off;
 Earth_View2.InertialFrame = Off;
@@ -329,74 +316,72 @@ Earth_View2.SetDefaultLocation = Off;
 Earth_View2.SetCurrentLocation = Off;
 Earth_View2.FOVy = 45;
 
-Create OpenFramesView geoSat_View1;
-
-geoSat_View1.ViewFrame = geoSat;
-geoSat_View1.ViewTrajectory = Off;
-geoSat_View1.InertialFrame = Off;
-geoSat_View1.LookAtFrame = Earth;
-geoSat_View1.ShortestAngle = Off;
-geoSat_View1.SetDefaultLocation = Off;
-geoSat_View1.SetCurrentLocation = Off;
-geoSat_View1.FOVy = 45;
+Create OpenFramesView StationView;
+StationView.ViewFrame = GSDarmstrat;
+StationView.ViewTrajectory = Off;
+StationView.InertialFrame = Off;
+StationView.LookAtFrame = Sentinel4A;
+StationView.ShortestAngle = Off;
+StationView.SetDefaultLocation = On;
+StationView.DefaultEye = [ 0 -10 0 ];
+StationView.DefaultCenter = [ 0 0 0 ];
+StationView.DefaultUp = [ 0 0 1 ];
+StationView.SetCurrentLocation = On;
+StationView.CurrentEye = [ 0 -10 0 ];
+StationView.CurrentCenter = [ 0 0 0 ];
+StationView.CurrentUp = [ 0 0 1 ];
+StationView.FOVy = 45;
 
 Create OpenFramesView geoSat_View2;
-
-geoSat_View2.ViewFrame = geoSat;
+geoSat_View2.ViewFrame = Sentinel4A;
 geoSat_View2.ViewTrajectory = Off;
 geoSat_View2.InertialFrame = On;
 geoSat_View2.LookAtFrame = Earth;
 geoSat_View2.ShortestAngle = Off;
 geoSat_View2.SetDefaultLocation = Off;
-geoSat_View2.SetCurrentLocation = Off;
+geoSat_View2.SetCurrentLocation = On;
+geoSat_View2.CurrentEye = [ 37.5 -2047.177734375 355.5 ];
+geoSat_View2.CurrentCenter = [ 37.5 711.75 355.5 ];
+geoSat_View2.CurrentUp = [ 0 0 1 ];
 geoSat_View2.FOVy = 45;
 
 %----------------------------------------
 %---------- Mission Sequence
 %----------------------------------------
 BeginMissionSequence;
-Propagate 'Prop to Z Crossing' DefaultProp(geoSat) {geoSat.Z = 0, StopTolerance = 1e-05};
+Propagate 'Prop to Equator' EarthOrbitProp(Sentinel4A) {Sentinel4A.Z = 0, StopTolerance = 1e-05};
 
 Target 'Raise Apogee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'Vary TOI.V' DC(TOI.Element1 = 1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-   Maneuver 'Apply TOI' TOI(geoSat);
-   Propagate 'Prop To Apogee' DefaultProp(geoSat) {geoSat.Apoapsis};
-   Achieve 'Achieve RMAG' DC(geoSat.RMAG = 85000, {Tolerance = .1});
+   Vary 'Vary Prograde Burn' DC(Transfer.Element1 = 1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Execute Transfer Burn' Transfer(Sentinel4A);
+   Propagate 'Prop To Apogee' EarthOrbitProp(Sentinel4A) {Sentinel4A.Apoapsis};
+   Achieve 'Achieve RMAG' DC(Sentinel4A.RMAG = 45000, {Tolerance = .1});
 EndTarget;  % For targeter DC
 
-Propagate 'Prop to Perigee' DefaultProp(geoSat) {geoSat.Earth.Periapsis};
-Propagate 'Prop to Plane Crossing' DefaultProp(geoSat) {geoSat.Z = 0, StopTolerance = 1e-05};
+Propagate 'Prop to Perigee' EarthOrbitProp(Sentinel4A) {Sentinel4A.Earth.Periapsis};
+Propagate 'Prop to Equator Crossing' EarthOrbitProp(Sentinel4A) {Sentinel4A.Z = 0, StopTolerance = 1e-05};
 
 Target 'Change Plane/Perigee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'Vary MCC.V' DC(MCC.Element1 = 0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-   Vary 'Vary MCC.N' DC(MCC.Element2 = 0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-   Maneuver 'Apply MCC' MCC(geoSat);
-   Propagate 'Prop to Perigee' DefaultProp(geoSat) {geoSat.Periapsis};
-   Achieve 'Apply INC' DC(geoSat.EarthMJ2000Eq.INC = 2, {Tolerance = .001});
-   Achieve 'Achieve RMAG' DC(geoSat.RMAG = 42195, {Tolerance = .001});
+   Vary 'Vary Prograde Burn' DC(Correction.Element1 = 0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary Normal Burn' DC(Correction.Element2 = 0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Execute Correction Burn' Correction(Sentinel4A);
+   Propagate 'Prop to Perigee' EarthOrbitProp(Sentinel4A) {Sentinel4A.Periapsis};
+   Achieve 'Achieve INC' DC(Sentinel4A.EarthMJ2000Eq.INC = 0, {Tolerance = .01});
+   Achieve 'Achieve RMAG' DC(Sentinel4A.RMAG = 42195, {Tolerance = .001});
 EndTarget;  % For targeter DC
+Correction.Element2 = 0;
 
-Target 'Correct Longitude' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'Vary MOI.V' DC(MOI.Element1 = 0, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-   Maneuver 'Apply MOI' MOI(geoSat);
-   Propagate 'Prop to Perigee' DefaultProp(geoSat) {geoSat.Periapsis};
-   Achieve 'AchieveLongitude' DC(geoSat.Earth.Longitude = 0, {Tolerance = 0.1});
+Target 'Correct Position' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary Prograde Burn' DC(Correction.Element1 = 0, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Execute Correction Burn' Correction(Sentinel4A);
+   Propagate 'Prop to Perigee' EarthOrbitProp(Sentinel4A) {Sentinel4A.Periapsis};
+   Achieve 'Achieve Longitude' DC(Sentinel4A.Earth.Longitude = 0, {Tolerance = 0.1});
 EndTarget;  % For targeter DC
 
 Target 'Lower Apogee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'Vary MOI.V' DC(MOI.Element1 = -0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-   Maneuver 'Apply MOI' MOI(geoSat);
-   Achieve 'Achieve SMA' DC(geoSat.Earth.SMA = 42166.90, {Tolerance = .001});
+   Vary 'Vary Prograde Burn' DC(Insertion.Element1 = -0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Maneuver 'Execute Insertion Burn' Insertion(Sentinel4A);
+   Achieve 'Achieve Period' DC(Sentinel4A.Earth.OrbitPeriod = 86164.09, {Tolerance = .001});
 EndTarget;  % For targeter DC
 
-Propagate 'Prop 10 days' DefaultProp(geoSat) {geoSat.ElapsedDays = 10};
-
-
-
-
-
-
-
-
-
-
+Propagate 'Prop 10 Days' EarthOrbitProp(Sentinel4A) {Sentinel4A.ElapsedDays = 10};
