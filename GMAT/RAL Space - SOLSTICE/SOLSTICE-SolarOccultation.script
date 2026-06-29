@@ -1,0 +1,456 @@
+%General Mission Analysis Tool(GMAT) Script
+%Created: 2026-06-02 17:31:57
+
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft SOLSTICE1;
+SOLSTICE1.DateFormat = UTCGregorian;
+SOLSTICE1.Epoch = '23 Sep 2027 01:00:00.000';
+SOLSTICE1.CoordinateSystem = EarthMJ2000Eq;
+SOLSTICE1.DisplayStateType = ModifiedKeplerian;
+SOLSTICE1.RadPer = 6936.000000000005;
+SOLSTICE1.RadApo = 6936.100000000009;
+SOLSTICE1.INC = 40.00000000000001;
+SOLSTICE1.RAAN = 89.99999999999999;
+SOLSTICE1.AOP = 8.537736462515939e-07;
+SOLSTICE1.TA = 8.537736462515939e-07;
+SOLSTICE1.DryMass = 850;
+SOLSTICE1.Cd = 2.2;
+SOLSTICE1.Cr = 1.8;
+SOLSTICE1.DragArea = 15;
+SOLSTICE1.SRPArea = 1;
+SOLSTICE1.SPADDragScaleFactor = 1;
+SOLSTICE1.SPADSRPScaleFactor = 1;
+SOLSTICE1.AtmosDensityScaleFactor = 1;
+SOLSTICE1.ExtendedMassPropertiesModel = 'None';
+SOLSTICE1.NAIFId = -10000001;
+SOLSTICE1.NAIFIdReferenceFrame = -9000001;
+SOLSTICE1.OrbitColor = [240 240 240];
+SOLSTICE1.TargetColor = Teal;
+SOLSTICE1.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+SOLSTICE1.CdSigma = 1e+70;
+SOLSTICE1.CrSigma = 1e+70;
+SOLSTICE1.Id = 'SatId';
+SOLSTICE1.Attitude = CoordinateSystemFixed;
+SOLSTICE1.SPADSRPInterpolationMethod = Bilinear;
+SOLSTICE1.SPADSRPScaleFactorSigma = 1e+70;
+SOLSTICE1.SPADDragInterpolationMethod = Bilinear;
+SOLSTICE1.SPADDragScaleFactorSigma = 1e+70;
+SOLSTICE1.AtmosDensityScaleFactorSigma = 1e+70;
+SOLSTICE1.ModelFile = 'aura.3ds';
+SOLSTICE1.ModelOffsetX = 0;
+SOLSTICE1.ModelOffsetY = 0;
+SOLSTICE1.ModelOffsetZ = 0;
+SOLSTICE1.ModelRotationX = 0;
+SOLSTICE1.ModelRotationY = 0;
+SOLSTICE1.ModelRotationZ = 0;
+SOLSTICE1.ModelScale = 1;
+SOLSTICE1.AttitudeDisplayStateType = 'Quaternion';
+SOLSTICE1.AttitudeRateDisplayStateType = 'AngularVelocity';
+SOLSTICE1.AttitudeCoordinateSystem = EarthMJ2000Eq;
+SOLSTICE1.EulerAngleSequence = '321';
+
+Create Spacecraft SOLSTICE2;
+SOLSTICE2.DateFormat = UTCGregorian;
+SOLSTICE2.Epoch = '23 Sep 2027 01:00:00.000';
+SOLSTICE2.CoordinateSystem = EarthMJ2000Eq;
+SOLSTICE2.DisplayStateType = ModifiedKeplerian;
+SOLSTICE2.RadPer = 6936.000000000005;
+SOLSTICE2.RadApo = 6936.100000000009;
+SOLSTICE2.INC = 40.00000000000001;
+SOLSTICE2.RAAN = 89.99999999999999;
+SOLSTICE2.AOP = 8.537736462515939e-07;
+SOLSTICE2.TA = 8.537736462515939e-07;
+SOLSTICE2.DryMass = 850;
+SOLSTICE2.Cd = 2.2;
+SOLSTICE2.Cr = 1.8;
+SOLSTICE2.DragArea = 15;
+SOLSTICE2.SRPArea = 1;
+SOLSTICE2.SPADDragScaleFactor = 1;
+SOLSTICE2.SPADSRPScaleFactor = 1;
+SOLSTICE2.AtmosDensityScaleFactor = 1;
+SOLSTICE2.ExtendedMassPropertiesModel = 'None';
+SOLSTICE2.NAIFId = -10000001;
+SOLSTICE2.NAIFIdReferenceFrame = -9000001;
+SOLSTICE2.OrbitColor = [176 176 176];
+SOLSTICE2.TargetColor = Teal;
+SOLSTICE2.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+SOLSTICE2.CdSigma = 1e+70;
+SOLSTICE2.CrSigma = 1e+70;
+SOLSTICE2.Id = 'SatId';
+SOLSTICE2.Attitude = CoordinateSystemFixed;
+SOLSTICE2.SPADSRPInterpolationMethod = Bilinear;
+SOLSTICE2.SPADSRPScaleFactorSigma = 1e+70;
+SOLSTICE2.SPADDragInterpolationMethod = Bilinear;
+SOLSTICE2.SPADDragScaleFactorSigma = 1e+70;
+SOLSTICE2.AtmosDensityScaleFactorSigma = 1e+70;
+SOLSTICE2.ModelFile = 'aura.3ds';
+SOLSTICE2.ModelOffsetX = 0;
+SOLSTICE2.ModelOffsetY = 0;
+SOLSTICE2.ModelOffsetZ = 0;
+SOLSTICE2.ModelRotationX = 0;
+SOLSTICE2.ModelRotationY = 0;
+SOLSTICE2.ModelRotationZ = 0;
+SOLSTICE2.ModelScale = 1;
+SOLSTICE2.AttitudeDisplayStateType = 'Quaternion';
+SOLSTICE2.AttitudeRateDisplayStateType = 'AngularVelocity';
+SOLSTICE2.AttitudeCoordinateSystem = EarthMJ2000Eq;
+SOLSTICE2.EulerAngleSequence = '321';
+
+Create Spacecraft SOLSTICE3;
+SOLSTICE3.DateFormat = UTCGregorian;
+SOLSTICE3.Epoch = '23 Sep 2027 01:00:00.000';
+SOLSTICE3.CoordinateSystem = EarthMJ2000Eq;
+SOLSTICE3.DisplayStateType = ModifiedKeplerian;
+SOLSTICE3.RadPer = 6936.000000000005;
+SOLSTICE3.RadApo = 6936.100000000009;
+SOLSTICE3.INC = 40.00000000000001;
+SOLSTICE3.RAAN = 89.99999999999999;
+SOLSTICE3.AOP = 8.537736462515939e-07;
+SOLSTICE3.TA = 8.537736462515939e-07;
+SOLSTICE3.DryMass = 850;
+SOLSTICE3.Cd = 2.2;
+SOLSTICE3.Cr = 1.8;
+SOLSTICE3.DragArea = 15;
+SOLSTICE3.SRPArea = 1;
+SOLSTICE3.SPADDragScaleFactor = 1;
+SOLSTICE3.SPADSRPScaleFactor = 1;
+SOLSTICE3.AtmosDensityScaleFactor = 1;
+SOLSTICE3.ExtendedMassPropertiesModel = 'None';
+SOLSTICE3.NAIFId = -10000001;
+SOLSTICE3.NAIFIdReferenceFrame = -9000001;
+SOLSTICE3.OrbitColor = [128 128 128];
+SOLSTICE3.TargetColor = Teal;
+SOLSTICE3.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+SOLSTICE3.CdSigma = 1e+70;
+SOLSTICE3.CrSigma = 1e+70;
+SOLSTICE3.Id = 'SatId';
+SOLSTICE3.Attitude = CoordinateSystemFixed;
+SOLSTICE3.SPADSRPInterpolationMethod = Bilinear;
+SOLSTICE3.SPADSRPScaleFactorSigma = 1e+70;
+SOLSTICE3.SPADDragInterpolationMethod = Bilinear;
+SOLSTICE3.SPADDragScaleFactorSigma = 1e+70;
+SOLSTICE3.AtmosDensityScaleFactorSigma = 1e+70;
+SOLSTICE3.ModelFile = 'aura.3ds';
+SOLSTICE3.ModelOffsetX = 0;
+SOLSTICE3.ModelOffsetY = 0;
+SOLSTICE3.ModelOffsetZ = 0;
+SOLSTICE3.ModelRotationX = 0;
+SOLSTICE3.ModelRotationY = 0;
+SOLSTICE3.ModelRotationZ = 0;
+SOLSTICE3.ModelScale = 1;
+SOLSTICE3.AttitudeDisplayStateType = 'Quaternion';
+SOLSTICE3.AttitudeRateDisplayStateType = 'AngularVelocity';
+SOLSTICE3.AttitudeCoordinateSystem = EarthMJ2000Eq;
+SOLSTICE3.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Formation
+%----------------------------------------
+
+Create Formation Formation1;
+Formation1.Add = {SOLSTICE1, SOLSTICE2, SOLSTICE3};
+
+%----------------------------------------
+%---------- GroundStations
+%----------------------------------------
+
+Create GroundStation GSChilbolton;
+GSChilbolton.OrbitColor = [0 255 0];
+GSChilbolton.TargetColor = DarkGray;
+GSChilbolton.CentralBody = Earth;
+GSChilbolton.StateType = Spherical;
+GSChilbolton.HorizonReference = Sphere;
+GSChilbolton.Location1 = 51.14578123015045;
+GSChilbolton.Location2 = 358.5612293965133;
+GSChilbolton.Location3 = 0;
+GSChilbolton.Id = 'Chilbolton';
+GSChilbolton.IonosphereModel = 'None';
+GSChilbolton.TroposphereModel = 'None';
+GSChilbolton.DataSource = 'Constant';
+GSChilbolton.Temperature = 295.1;
+GSChilbolton.Pressure = 1013.5;
+GSChilbolton.Humidity = 55;
+GSChilbolton.MinimumElevationAngle = 7;
+
+Create GroundStation GSAzores;
+GSAzores.OrbitColor = [255 128 64];
+GSAzores.TargetColor = DarkGray;
+GSAzores.CentralBody = Earth;
+GSAzores.StateType = Spherical;
+GSAzores.HorizonReference = Sphere;
+GSAzores.Location1 = 36.985;
+GSAzores.Location2 = 334.874;
+GSAzores.Location3 = 0;
+GSAzores.Id = 'Azores';
+GSAzores.IonosphereModel = 'None';
+GSAzores.TroposphereModel = 'None';
+GSAzores.DataSource = 'Constant';
+GSAzores.Temperature = 295.1;
+GSAzores.Pressure = 1013.5;
+GSAzores.Humidity = 55;
+GSAzores.MinimumElevationAngle = 7;
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel EarthOrbitProp_ForceModel;
+EarthOrbitProp_ForceModel.CentralBody = Earth;
+EarthOrbitProp_ForceModel.PrimaryBodies = {Earth};
+EarthOrbitProp_ForceModel.PointMasses = {Luna, Sun};
+EarthOrbitProp_ForceModel.SRP = On;
+EarthOrbitProp_ForceModel.RelativisticCorrection = Off;
+EarthOrbitProp_ForceModel.ErrorControl = RSSStep;
+EarthOrbitProp_ForceModel.GravityField.Earth.Degree = 4;
+EarthOrbitProp_ForceModel.GravityField.Earth.Order = 4;
+EarthOrbitProp_ForceModel.GravityField.Earth.StmLimit = 100;
+EarthOrbitProp_ForceModel.GravityField.Earth.PotentialFile = 'JGM2.cof';
+EarthOrbitProp_ForceModel.GravityField.Earth.TideModel = 'None';
+EarthOrbitProp_ForceModel.SRP.Flux = 1367;
+EarthOrbitProp_ForceModel.SRP.SRPModel = Spherical;
+EarthOrbitProp_ForceModel.SRP.Nominal_Sun = 149597870.691;
+EarthOrbitProp_ForceModel.Drag.AtmosphereModel = MSISE90;
+EarthOrbitProp_ForceModel.Drag.HistoricWeatherSource = 'ConstantFluxAndGeoMag';
+EarthOrbitProp_ForceModel.Drag.PredictedWeatherSource = 'ConstantFluxAndGeoMag';
+EarthOrbitProp_ForceModel.Drag.CSSISpaceWeatherFile = 'SpaceWeather-All-v1.2.txt';
+EarthOrbitProp_ForceModel.Drag.SchattenFile = 'SchattenPredict.txt';
+EarthOrbitProp_ForceModel.Drag.F107 = 150;
+EarthOrbitProp_ForceModel.Drag.F107A = 150;
+EarthOrbitProp_ForceModel.Drag.MagneticIndex = 3;
+EarthOrbitProp_ForceModel.Drag.SchattenErrorModel = 'Nominal';
+EarthOrbitProp_ForceModel.Drag.SchattenTimingModel = 'NominalCycle';
+EarthOrbitProp_ForceModel.Drag.DragModel = 'Spherical';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator EarthOrbitProp;
+EarthOrbitProp.FM = EarthOrbitProp_ForceModel;
+EarthOrbitProp.Type = RungeKutta89;
+EarthOrbitProp.InitialStepSize = 60;
+EarthOrbitProp.Accuracy = 9.999999999999999e-12;
+EarthOrbitProp.MinStep = 0.001;
+EarthOrbitProp.MaxStep = 2700;
+EarthOrbitProp.MaxStepAttempts = 50;
+EarthOrbitProp.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Coordinate Systems
+%----------------------------------------
+
+Create CoordinateSystem SolarVector;
+SolarVector.Origin = SOLSTICE1;
+SolarVector.Axes = ObjectReferenced;
+SolarVector.XAxis = R;
+SolarVector.ZAxis = N;
+SolarVector.Primary = SOLSTICE1;
+SolarVector.Secondary = Sun;
+
+%----------------------------------------
+%---------- EventLocators
+%----------------------------------------
+
+Create EclipseLocator OccultationLocator;
+OccultationLocator.Spacecraft = SOLSTICE1;
+OccultationLocator.Filename = 'EclipseLocator1.txt';
+OccultationLocator.OccultingBodies = {Earth};
+OccultationLocator.InputEpochFormat = 'TAIModJulian';
+OccultationLocator.InitialEpoch = '21545';
+OccultationLocator.StepSize = 1;
+OccultationLocator.FinalEpoch = '21545.138';
+OccultationLocator.UseLightTimeDelay = true;
+OccultationLocator.UseStellarAberration = true;
+OccultationLocator.WriteReport = true;
+OccultationLocator.RunMode = Automatic;
+OccultationLocator.UseEntireInterval = true;
+OccultationLocator.EclipseTypes = {'Penumbra'};
+
+Create ContactLocator ContactLocator;
+ContactLocator.Target = SOLSTICE1;
+ContactLocator.Filename = 'ContactLocator1.txt';
+ContactLocator.InputEpochFormat = 'TAIModJulian';
+ContactLocator.InitialEpoch = '21545';
+ContactLocator.StepSize = 10;
+ContactLocator.FinalEpoch = '21545.138';
+ContactLocator.UseLightTimeDelay = true;
+ContactLocator.UseStellarAberration = true;
+ContactLocator.WriteReport = true;
+ContactLocator.RunMode = Automatic;
+ContactLocator.UseEntireInterval = true;
+ContactLocator.Observers = {GSChilbolton, GSAzores};
+ContactLocator.LightTimeDirection = Transmit;
+ContactLocator.LeftJustified = false;
+ContactLocator.ReportPrecision = 6;
+ContactLocator.ReportFormat = 'Legacy';
+ContactLocator.IntervalStepSize = 0;
+ContactLocator.ReportTimeFormat = 'UTCGregorian';
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create OpenFramesInterface SOLSTICESolarView;
+SOLSTICESolarView.SolverIterations = Current;
+SOLSTICESolarView.UpperLeft = [ 0 0.4985401459854015 ];
+SOLSTICESolarView.Size = [ 0.998215082552432 0.4985401459854015 ];
+SOLSTICESolarView.RelativeZOrder = 378;
+SOLSTICESolarView.Maximized = false;
+SOLSTICESolarView.Add = {SOLSTICE1, SOLSTICE2, SOLSTICE3, GSAzores, GSChilbolton, Earth, Sun};
+SOLSTICESolarView.View = {SolarView};
+SOLSTICESolarView.CoordinateSystem = SolarVector;
+SOLSTICESolarView.DrawObject = [ true true true false false true true ];
+SOLSTICESolarView.DrawTrajectory = [ true true true false false true true ];
+SOLSTICESolarView.DrawAxes = [ false false false false false false false ];
+SOLSTICESolarView.DrawXYPlane = [ false false false false false false false ];
+SOLSTICESolarView.DrawLabel = [ true true true true true true true ];
+SOLSTICESolarView.DrawUsePropLabel = [ false false false false false false false ];
+SOLSTICESolarView.DrawCenterPoint = [ false true true true true true true ];
+SOLSTICESolarView.DrawEndPoints = [ false true true false false true true ];
+SOLSTICESolarView.DrawVelocity = [ false false false false false false false ];
+SOLSTICESolarView.DrawGrid = [ false false false false false false false ];
+SOLSTICESolarView.DrawLineWidth = [ 2 2 2 2 2 2 2 ];
+SOLSTICESolarView.DrawMarkerSize = [ 10 10 10 10 10 10 10 ];
+SOLSTICESolarView.DrawFontSize = [ 20 20 20 20 20 20 20 ];
+SOLSTICESolarView.Axes = Off;
+SOLSTICESolarView.AxesLength = 12756.2726;
+SOLSTICESolarView.AxesLabels = On;
+SOLSTICESolarView.FrameLabel = Off;
+SOLSTICESolarView.XYPlane = Off;
+SOLSTICESolarView.EclipticPlane = Off;
+SOLSTICESolarView.EnableStars = Off;
+SOLSTICESolarView.StarCatalog = 'inp_StarsHYGv3.txt';
+SOLSTICESolarView.StarCount = 7000;
+SOLSTICESolarView.MinStarMag = -2;
+SOLSTICESolarView.MaxStarMag = 6;
+SOLSTICESolarView.MinStarPixels = 1;
+SOLSTICESolarView.MaxStarPixels = 10;
+SOLSTICESolarView.MinStarDimRatio = 0.5;
+SOLSTICESolarView.ShowPlot = true;
+SOLSTICESolarView.ShowToolbar = true;
+SOLSTICESolarView.SolverIterLastN = 1;
+SOLSTICESolarView.ShowVR = false;
+SOLSTICESolarView.PlaybackTimeScale = 3600;
+SOLSTICESolarView.MultisampleAntiAliasing = On;
+SOLSTICESolarView.MSAASamples = 2;
+SOLSTICESolarView.DrawFontPosition = {'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right'};
+
+
+Create OpenFramesInterface EarthOrbitView;
+EarthOrbitView.SolverIterations = Current;
+EarthOrbitView.UpperLeft = [ 0 0 ];
+EarthOrbitView.Size = [ 0.998215082552432 0.4985401459854015 ];
+EarthOrbitView.RelativeZOrder = 353;
+EarthOrbitView.Maximized = false;
+EarthOrbitView.Add = {SOLSTICE1, GSChilbolton, GSAzores, SOLSTICE2, SOLSTICE3, Earth, Sun};
+EarthOrbitView.View = {OrbitView};
+EarthOrbitView.Vector = {StationVector};
+EarthOrbitView.CoordinateSystem = EarthMJ2000Eq;
+EarthOrbitView.DrawObject = [ true false false true true true true ];
+EarthOrbitView.DrawTrajectory = [ true false false true true true true ];
+EarthOrbitView.DrawAxes = [ false false false false false false false ];
+EarthOrbitView.DrawXYPlane = [ false false false false false false false ];
+EarthOrbitView.DrawLabel = [ true true true true true true true ];
+EarthOrbitView.DrawUsePropLabel = [ false false false false false false false ];
+EarthOrbitView.DrawCenterPoint = [ true true true true true true false ];
+EarthOrbitView.DrawEndPoints = [ true false false true true true false ];
+EarthOrbitView.DrawVelocity = [ false false false false false false false ];
+EarthOrbitView.DrawGrid = [ false false false false false false false ];
+EarthOrbitView.DrawLineWidth = [ 2 2 2 2 2 2 2 ];
+EarthOrbitView.DrawMarkerSize = [ 10 10 10 10 10 10 10 ];
+EarthOrbitView.DrawFontSize = [ 20 20 20 20 20 20 20 ];
+EarthOrbitView.Axes = On;
+EarthOrbitView.AxesLength = 12756.2726;
+EarthOrbitView.AxesLabels = On;
+EarthOrbitView.FrameLabel = Off;
+EarthOrbitView.XYPlane = Off;
+EarthOrbitView.EclipticPlane = Off;
+EarthOrbitView.EnableStars = Off;
+EarthOrbitView.StarCatalog = 'inp_StarsHYGv3.txt';
+EarthOrbitView.StarCount = 40000;
+EarthOrbitView.MinStarMag = -2;
+EarthOrbitView.MaxStarMag = 6;
+EarthOrbitView.MinStarPixels = 1;
+EarthOrbitView.MaxStarPixels = 10;
+EarthOrbitView.MinStarDimRatio = 0.5;
+EarthOrbitView.ShowPlot = true;
+EarthOrbitView.ShowToolbar = true;
+EarthOrbitView.SolverIterLastN = 1;
+EarthOrbitView.ShowVR = false;
+EarthOrbitView.PlaybackTimeScale = 3600;
+EarthOrbitView.MultisampleAntiAliasing = On;
+EarthOrbitView.MSAASamples = 2;
+EarthOrbitView.DrawFontPosition = {'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right'};
+
+Create GroundTrack GroundStationTrackPlot;
+GroundStationTrackPlot.SolverIterations = Current;
+GroundStationTrackPlot.UpperLeft = [ 0 0.4956204379562044 ];
+GroundStationTrackPlot.Size = [ 0.99776885319054 0.4985401459854015 ];
+GroundStationTrackPlot.RelativeZOrder = 369;
+GroundStationTrackPlot.Maximized = false;
+GroundStationTrackPlot.CentralBody = Earth;
+GroundStationTrackPlot.TextureMap = 'ModifiedBlueMarble.jpg';
+GroundStationTrackPlot.Add = {GSChilbolton, GSAzores, SOLSTICE1, SOLSTICE2, SOLSTICE3};
+GroundStationTrackPlot.DataCollectFrequency = 1;
+GroundStationTrackPlot.UpdatePlotFrequency = 50;
+GroundStationTrackPlot.NumPointsToRedraw = 0;
+GroundStationTrackPlot.MaxPlotPoints = 20000;
+GroundStationTrackPlot.ShowPlot = true;
+
+%----------------------------------------
+%---------- User Objects
+%----------------------------------------
+
+Create OpenFramesView SolarView;
+SolarView.ViewFrame = SOLSTICE1;
+SolarView.ViewTrajectory = Off;
+SolarView.InertialFrame = On;
+SolarView.LookAtFrame = Sun;
+SolarView.ShortestAngle = Off;
+SolarView.SetDefaultLocation = On;
+SolarView.DefaultEye = [ 0 -1000 300 ];
+SolarView.DefaultCenter = [ 0 0 0 ];
+SolarView.DefaultUp = [ 0 0 1 ];
+SolarView.SetCurrentLocation = On;
+SolarView.CurrentEye = [ 0 -1000 300.0000000000002 ];
+SolarView.CurrentCenter = [ 0 0 0 ];
+SolarView.CurrentUp = [ 0 0.2873478855663455 0.9578262852211513 ];
+SolarView.FOVy = 45;
+
+Create OpenFramesView OrbitView;
+OrbitView.ViewFrame = CoordinateSystem;
+OrbitView.ViewTrajectory = Off;
+OrbitView.InertialFrame = Off;
+OrbitView.SetDefaultLocation = On;
+OrbitView.DefaultEye = [ 30000 -30000 30000 ];
+OrbitView.DefaultCenter = [ 0 0 0 ];
+OrbitView.DefaultUp = [ 0 0 1 ];
+OrbitView.SetCurrentLocation = On;
+OrbitView.CurrentEye = [ 30000.00000000001 -30000.00000000001 30000 ];
+OrbitView.CurrentCenter = [ 7.275957614183426e-12 0 0 ];
+OrbitView.CurrentUp = [ -0.408248290463863 0.4082482904638629 0.8164965809277261 ];
+OrbitView.FOVy = 45;
+
+Create OpenFramesVector StationVector;
+StationVector.VectorColor = [255 128 128];
+StationVector.SourceObject = SOLSTICE1;
+StationVector.VectorType = Relative Position;
+StationVector.DestinationObject = GSAzores;
+StationVector.VectorLabel = 'LinkVector';
+StationVector.VectorLengthType = 'Manual';
+StationVector.VectorLength = 300;
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+SOLSTICE2 = SOLSTICE1;
+SOLSTICE2.TA = SOLSTICE1.TA + 120;
+SOLSTICE3 = SOLSTICE2;
+SOLSTICE3.TA = SOLSTICE2.TA + 120;
+Propagate EarthOrbitProp(Formation1) {SOLSTICE1.ElapsedDays = 2};
