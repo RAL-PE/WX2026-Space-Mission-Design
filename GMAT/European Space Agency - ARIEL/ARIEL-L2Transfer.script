@@ -124,34 +124,34 @@ SEL2Prop.StopIfAccuracyIsViolated = true;
 %---------- Burns
 %----------------------------------------
 
-Create ImpulsiveBurn EjectBurn;
-EjectBurn.CoordinateSystem = Local;
-EjectBurn.Origin = Earth;
-EjectBurn.Axes = VNB;
-EjectBurn.Element1 = 3.2;
-EjectBurn.Element2 = 0;
-EjectBurn.Element3 = 0;
-EjectBurn.DecrementMass = false;
-EjectBurn.Isp = 300;
-EjectBurn.GravitationalAccel = 9.81;
+Create ImpulsiveBurn Ejection;
+Ejection.CoordinateSystem = Local;
+Ejection.Origin = Earth;
+Ejection.Axes = VNB;
+Ejection.Element1 = 3.2;
+Ejection.Element2 = 0;
+Ejection.Element3 = 0;
+Ejection.DecrementMass = false;
+Ejection.Isp = 300;
+Ejection.GravitationalAccel = 9.81;
 
-Create ImpulsiveBurn InsertBurn;
-InsertBurn.CoordinateSystem = SEL2;
-InsertBurn.Element1 = 0;
-InsertBurn.Element2 = 0;
-InsertBurn.Element3 = 0;
-InsertBurn.DecrementMass = false;
-InsertBurn.Isp = 300;
-InsertBurn.GravitationalAccel = 9.81;
+Create ImpulsiveBurn Injection;
+Injection.CoordinateSystem = SEL2;
+Injection.Element1 = 0;
+Injection.Element2 = 0;
+Injection.Element3 = 0;
+Injection.DecrementMass = false;
+Injection.Isp = 300;
+Injection.GravitationalAccel = 9.81;
 
-Create ImpulsiveBurn SEL2Burn;
-SEL2Burn.CoordinateSystem = SEL2;
-SEL2Burn.Element1 = 0;
-SEL2Burn.Element2 = 0;
-SEL2Burn.Element3 = 0;
-SEL2Burn.DecrementMass = false;
-SEL2Burn.Isp = 300;
-SEL2Burn.GravitationalAccel = 9.81;
+Create ImpulsiveBurn Correction;
+Correction.CoordinateSystem = SEL2;
+Correction.Element1 = 0;
+Correction.Element2 = 0;
+Correction.Element3 = 0;
+Correction.DecrementMass = false;
+Correction.Isp = 300;
+Correction.GravitationalAccel = 9.81;
 
 %----------------------------------------
 %---------- Coordinate Systems
@@ -189,75 +189,101 @@ DefaultDC.Algorithm = NewtonRaphson;
 %---------- Subscribers
 %----------------------------------------
 
-Create OrbitView EarthOrbitView;
+Create OpenFramesInterface EarthOrbitView;
 EarthOrbitView.SolverIterations = Current;
-EarthOrbitView.UpperLeft = [ 0 0.2788321167883211 ];
-EarthOrbitView.Size = [ 0.3380341880341881 0.6810218978102189 ];
-EarthOrbitView.RelativeZOrder = 1341;
+EarthOrbitView.UpperLeft = [ 0 0 ];
+EarthOrbitView.Size = [ 0.4927466150870406 0.9861313868613139 ];
+EarthOrbitView.RelativeZOrder = 4540;
 EarthOrbitView.Maximized = false;
-EarthOrbitView.Add = {ARIEL, Earth, SEL2Point, Luna, Sun};
+EarthOrbitView.Add = {ARIEL, Earth, Luna, Sun};
+EarthOrbitView.View = {EarthView};
 EarthOrbitView.CoordinateSystem = EarthMJ2000Ec;
-EarthOrbitView.DrawObject = [ true true true true true ];
-EarthOrbitView.DataCollectFrequency = 1;
-EarthOrbitView.UpdatePlotFrequency = 50;
-EarthOrbitView.NumPointsToRedraw = 0;
-EarthOrbitView.ShowPlot = true;
-EarthOrbitView.MaxPlotPoints = 20000;
-EarthOrbitView.ShowLabels = true;
-EarthOrbitView.ViewPointReference = Earth;
-EarthOrbitView.ViewPointVector = [ 0 0 5000000 ];
-EarthOrbitView.ViewDirection = Earth;
-EarthOrbitView.ViewScaleFactor = 1;
-EarthOrbitView.ViewUpCoordinateSystem = EarthMJ2000Ec;
-EarthOrbitView.ViewUpAxis = Z;
-EarthOrbitView.EclipticPlane = On;
-EarthOrbitView.XYPlane = Off;
-EarthOrbitView.WireFrame = Off;
+EarthOrbitView.DrawObject = [ true true true true ];
+EarthOrbitView.DrawTrajectory = [ true true true true ];
+EarthOrbitView.DrawAxes = [ false false false false ];
+EarthOrbitView.DrawXYPlane = [ false false false false ];
+EarthOrbitView.DrawLabel = [ true true true true ];
+EarthOrbitView.DrawUsePropLabel = [ false false false false ];
+EarthOrbitView.DrawCenterPoint = [ true true true true ];
+EarthOrbitView.DrawEndPoints = [ true true true true ];
+EarthOrbitView.DrawVelocity = [ false false false false ];
+EarthOrbitView.DrawGrid = [ false false false false ];
+EarthOrbitView.DrawLineWidth = [ 2 2 2 2 ];
+EarthOrbitView.DrawMarkerSize = [ 10 10 10 10 ];
+EarthOrbitView.DrawFontSize = [ 20 20 20 20 ];
 EarthOrbitView.Axes = On;
-EarthOrbitView.Grid = Off;
-EarthOrbitView.SunLine = On;
-EarthOrbitView.UseInitialView = On;
-EarthOrbitView.StarCount = 7000;
+EarthOrbitView.AxesLength = 12756.2726;
+EarthOrbitView.AxesLabels = On;
+EarthOrbitView.FrameLabel = Off;
+EarthOrbitView.XYPlane = Off;
+EarthOrbitView.EclipticPlane = On;
 EarthOrbitView.EnableStars = Off;
-EarthOrbitView.EnableConstellations = On;
+EarthOrbitView.StarCatalog = 'inp_StarsHYGv3.txt';
+EarthOrbitView.StarCount = 7000;
+EarthOrbitView.MinStarMag = -2;
+EarthOrbitView.MaxStarMag = 6;
+EarthOrbitView.MinStarPixels = 1;
+EarthOrbitView.MaxStarPixels = 10;
+EarthOrbitView.MinStarDimRatio = 0.5;
+EarthOrbitView.ShowPlot = true;
+EarthOrbitView.ShowToolbar = true;
+EarthOrbitView.SolverIterLastN = 1;
+EarthOrbitView.ShowVR = false;
+EarthOrbitView.PlaybackTimeScale = 3600;
+EarthOrbitView.MultisampleAntiAliasing = On;
+EarthOrbitView.MSAASamples = 2;
+EarthOrbitView.DrawFontPosition = {'Top-Right', 'Top-Right', 'Top-Right', 'Top-Right'};
 
-Create OrbitView SEL2IsoView;
+Create OpenFramesInterface SEL2IsoView;
 SEL2IsoView.SolverIterations = Current;
-SEL2IsoView.UpperLeft = [ 0.3397435897435898 0.2897810218978102 ];
-SEL2IsoView.Size = [ 0.4452991452991453 0.6678832116788321 ];
-SEL2IsoView.RelativeZOrder = 1418;
+SEL2IsoView.UpperLeft = [ 0.4927466150870406 0 ];
+SEL2IsoView.Size = [ 0.4927466150870406 0.9861313868613139 ];
+SEL2IsoView.RelativeZOrder = 4534;
 SEL2IsoView.Maximized = false;
 SEL2IsoView.Add = {ARIEL, Earth, Sun};
+SEL2IsoView.View = {IsoView};
 SEL2IsoView.CoordinateSystem = SEL2;
 SEL2IsoView.DrawObject = [ true true true ];
-SEL2IsoView.DataCollectFrequency = 1;
-SEL2IsoView.UpdatePlotFrequency = 50;
-SEL2IsoView.NumPointsToRedraw = 0;
-SEL2IsoView.ShowPlot = true;
-SEL2IsoView.MaxPlotPoints = 20000;
-SEL2IsoView.ShowLabels = true;
-SEL2IsoView.ViewPointReference = SEL2Point;
-SEL2IsoView.ViewPointVector = [ -600000 600000 600000 ];
-SEL2IsoView.ViewDirection = SEL2Point;
-SEL2IsoView.ViewScaleFactor = 3;
-SEL2IsoView.ViewUpCoordinateSystem = SEL2;
-SEL2IsoView.ViewUpAxis = Z;
-SEL2IsoView.EclipticPlane = On;
-SEL2IsoView.XYPlane = Off;
-SEL2IsoView.WireFrame = Off;
+SEL2IsoView.DrawTrajectory = [ true true true ];
+SEL2IsoView.DrawAxes = [ false false false ];
+SEL2IsoView.DrawXYPlane = [ false false false ];
+SEL2IsoView.DrawLabel = [ true true true ];
+SEL2IsoView.DrawUsePropLabel = [ false false false ];
+SEL2IsoView.DrawCenterPoint = [ true true true ];
+SEL2IsoView.DrawEndPoints = [ true true true ];
+SEL2IsoView.DrawVelocity = [ false false false ];
+SEL2IsoView.DrawGrid = [ false false false ];
+SEL2IsoView.DrawLineWidth = [ 2 2 2 ];
+SEL2IsoView.DrawMarkerSize = [ 10 10 10 ];
+SEL2IsoView.DrawFontSize = [ 20 20 20 ];
 SEL2IsoView.Axes = On;
-SEL2IsoView.Grid = Off;
-SEL2IsoView.SunLine = On;
-SEL2IsoView.UseInitialView = On;
-SEL2IsoView.StarCount = 7000;
+SEL2IsoView.AxesLength = 12756.2726;
+SEL2IsoView.AxesLabels = On;
+SEL2IsoView.FrameLabel = Off;
+SEL2IsoView.XYPlane = Off;
+SEL2IsoView.EclipticPlane = On;
 SEL2IsoView.EnableStars = Off;
-SEL2IsoView.EnableConstellations = On;
+SEL2IsoView.StarCatalog = 'inp_StarsHYGv3.txt';
+SEL2IsoView.StarCount = 7000;
+SEL2IsoView.MinStarMag = -2;
+SEL2IsoView.MaxStarMag = 6;
+SEL2IsoView.MinStarPixels = 1;
+SEL2IsoView.MaxStarPixels = 10;
+SEL2IsoView.MinStarDimRatio = 0.5;
+SEL2IsoView.ShowPlot = true;
+SEL2IsoView.ShowToolbar = true;
+SEL2IsoView.SolverIterLastN = 1;
+SEL2IsoView.ShowVR = false;
+SEL2IsoView.PlaybackTimeScale = 3600;
+SEL2IsoView.MultisampleAntiAliasing = On;
+SEL2IsoView.MSAASamples = 2;
+SEL2IsoView.DrawFontPosition = {'Top-Right', 'Top-Right', 'Top-Right'};
 
 Create XYPlot SEL2dVTotal;
 SEL2dVTotal.SolverIterations = Current;
-SEL2dVTotal.UpperLeft = [ 0.7914529914529914 0.00291970802919708 ];
-SEL2dVTotal.Size = [ 0.2008547008547009 0.4080291970802919 ];
-SEL2dVTotal.RelativeZOrder = 1346;
+SEL2dVTotal.UpperLeft = [ 0 0 ];
+SEL2dVTotal.Size = [ 0.8196324951644101 0.691970802919708 ];
+SEL2dVTotal.RelativeZOrder = 4531;
 SEL2dVTotal.Maximized = false;
 SEL2dVTotal.XVariable = ARIEL.ElapsedDays;
 SEL2dVTotal.YVariables = {SEL2dVBudget};
@@ -275,47 +301,90 @@ ProgradeGuess = 3.19;
 IncGuess = 0;
 SEL2dVBudget = 0;
 I = 0;
-VYGuess = 0.08;
+VYGuess = 0.1;
+
+%----------------------------------------
+%---------- User Objects
+%----------------------------------------
+
+Create OpenFramesView EarthView;
+EarthView.ViewFrame = CoordinateSystem;
+EarthView.ViewTrajectory = Off;
+EarthView.InertialFrame = Off;
+EarthView.SetDefaultLocation = On;
+EarthView.DefaultEye = [ 0 0 5000000 ];
+EarthView.DefaultCenter = [ 0 0 0 ];
+EarthView.DefaultUp = [ 0 0 1 ];
+EarthView.SetCurrentLocation = On;
+EarthView.CurrentEye = [ 0 0 5000000 ];
+EarthView.CurrentCenter = [ 0 0 0 ];
+EarthView.CurrentUp = [ 0 1 0 ];
+EarthView.FOVy = 45;
+
+Create OpenFramesView IsoView;
+IsoView.ViewFrame = CoordinateSystem;
+IsoView.ViewTrajectory = Off;
+IsoView.InertialFrame = Off;
+IsoView.SetDefaultLocation = On;
+IsoView.DefaultEye = [ -1800000 1800000 1800000 ];
+IsoView.DefaultCenter = [ 0 0 0 ];
+IsoView.DefaultUp = [ 0 0 1 ];
+IsoView.SetCurrentLocation = On;
+IsoView.CurrentEye = [ -1800000 1800000 1800000 ];
+IsoView.CurrentCenter = [ 0 0 0 ];
+IsoView.CurrentUp = [ 0.2478276439339161 -0.2570634121354438 0.9340770102317295 ];
+IsoView.FOVy = 45;
 
 %----------------------------------------
 %---------- Mission Sequence
 %----------------------------------------
 
 BeginMissionSequence;
-Target 'SetupEjection' DefaultDC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'VaryProgradeBurn' DefaultDC(EjectBurn.Element1 = ProgradeGuess, {Perturbation = 0.0001, Lower = 3.18, Upper = 3.22, MaxStep = 0.005, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-   ProgradeGuess = EjectBurn.Element1;
-   Target 'SetupOrbit' DefaultDC {SolveMode = Solve, ExitMode = SaveAndContinue, ShowProgressWindow = true};
-      Vary 'VaryOrbitInclination' DefaultDC(ARIEL.INC = IncGuess, {Perturbation = 0.001, Lower = 0, Upper = 45, MaxStep = 3, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+Target 'Setup Ejection' DefaultDC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary Prograde Burn' DefaultDC(Ejection.Element1 = ProgradeGuess, {Perturbation = 0.0001, Lower = 3.18, Upper = 3.22, MaxStep = 0.005, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   ProgradeGuess = Ejection.Element1;
+
+   Target 'Setup Orbit' DefaultDC {SolveMode = Solve, ExitMode = SaveAndContinue, ShowProgressWindow = true};
+      Vary 'Vary Inclination' DefaultDC(ARIEL.INC = IncGuess, {Perturbation = 0.001, Lower = 0, Upper = 45, MaxStep = 3, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
       IncGuess = ARIEL.INC;
-      Vary 'VaryOrbitPivot' DefaultDC(ARIEL.RAAN = RAANGuess, {Perturbation = 0.001, Lower = 0, Upper = 180, MaxStep = 3, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+
+      Vary 'Vary Pivot' DefaultDC(ARIEL.RAAN = RAANGuess, {Perturbation = 0.001, Lower = -180, Upper = 180, MaxStep = 3, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
       RAANGuess = ARIEL.RAAN;
-      Propagate 'TravelPeriapsis' EarthProp(ARIEL) {ARIEL.Earth.Periapsis};
-      Maneuver 'EjectionBurn' EjectBurn(ARIEL);
-      Propagate 'TravelSEL2' EarthProp(ARIEL) {ARIEL.ElapsedDays = 45, ARIEL.Earth.Apoapsis, ARIEL.SEL2.VX = 0};
-      Achieve 'AchieveLateralDistance' DefaultDC(ARIEL.SEL2.Y = 100, {Tolerance = 10});
-      Achieve 'AchieveOffPlaneDistance' DefaultDC(ARIEL.SEL2.Z = ZTarget, {Tolerance = 10});
+
+      Propagate 'Prop to Periapsis' EarthProp(ARIEL) {ARIEL.Earth.Periapsis};
+      Maneuver 'Execute Ejection Burn' Ejection(ARIEL);
+
+      Propagate 'Prop to SEL2' EarthProp(ARIEL) {ARIEL.ElapsedDays = 45, ARIEL.Earth.Apoapsis, ARIEL.SEL2.VX = 0};
+      Achieve 'Achieve Lateral Position' DefaultDC(ARIEL.SEL2.Y = 100, {Tolerance = 10});
+      Achieve 'Achieve OffPlane Position' DefaultDC(ARIEL.SEL2.Z = ZTarget, {Tolerance = 10});
    EndTarget;  % For targeter DefaultDC
-   Achieve 'AchieveRadialDistance' DefaultDC(ARIEL.SEL2.X = XTarget, {Tolerance = 10});
+
+   Achieve 'Achieve Radial Position' DefaultDC(ARIEL.SEL2.X = XTarget, {Tolerance = 10});
 EndTarget;  % For targeter DefaultDC
-Propagate 'AlignSEL2' SEL2Prop(ARIEL) {ARIEL.SEL2.Y = 0};
-InsertBurn.Element1 = -ARIEL.SEL2.VX;
-InsertBurn.Element3 = -ARIEL.SEL2.VZ;
-Target 'InsertSEL2Orbit' DefaultDC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'VaryProgradeBurn' DefaultDC(InsertBurn.Element2 = VYGuess, {Perturbation = 0.0001, Lower = 0.0, Upper = 0.3, MaxStep = 0.002, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-   VYGuess = InsertBurn.Element2;
-   Maneuver 'RendezvousBurn' InsertBurn(ARIEL);
-   Propagate 'TravelSEL2Arc' SEL2Prop(ARIEL) {ARIEL.ElapsedDays = 120, ARIEL.SEL2.Y = 0};
-   Propagate 'ReturnSEL2Origin' SEL2Prop(ARIEL) {ARIEL.ElapsedDays = 120, ARIEL.SEL2.Y = 0};
-   Achieve 'AchieveXTarget' DefaultDC(ARIEL.SEL2.X = XTarget, {Tolerance = 10});
+
+Propagate 'Prop to Vertical Plane' SEL2Prop(ARIEL) {ARIEL.SEL2.Y = 0};
+Injection.Element1 = -ARIEL.SEL2.VX;
+Injection.Element3 = -ARIEL.SEL2.VZ;
+Target 'Setup SEL2 Orbit' DefaultDC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
+   Vary 'Vary Prograde Burn' DefaultDC(Injection.Element2 = VYGuess, {Perturbation = 0.0001, Lower = 0.0, Upper = 0.3, MaxStep = 0.002, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   VYGuess = Injection.Element2;
+
+   Maneuver 'Execute Injection Burn' Injection(ARIEL);
+   Propagate 'Prop to Vertical Plane' SEL2Prop(ARIEL) {ARIEL.ElapsedDays = 120, ARIEL.SEL2.Y = 0};
+   Propagate 'Prop Back to Vertical Plane' SEL2Prop(ARIEL) {ARIEL.ElapsedDays = 120, ARIEL.SEL2.Y = 0};
+
+   Achieve 'Achieve Radial Position' DefaultDC(ARIEL.SEL2.X = XTarget, {Tolerance = 10});
 EndTarget;  % For targeter DefaultDC
-SEL2dVBudget = sqrt(InsertBurn.Element1^2 + VYGuess^2 + InsertBurn.Element3^2);
-For 'ScienceSEL2' I = 1:1:22;
-   Target 'SetupMaintenance' DefaultDC {SolveMode = Solve, ExitMode = SaveAndContinue, ShowProgressWindow = true};
-      Vary 'VaryRadialBurn' DefaultDC(SEL2Burn.Element1 = 0, {Perturbation = 0.0001, Lower = 0, Upper = 0.05, MaxStep = 0.005, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-      Maneuver 'MaintenanceBurn' SEL2Burn(ARIEL);
-      Propagate 'ReturnSEL2' SEL2Prop(ARIEL) {ARIEL.ElapsedDays = 100, ARIEL.SEL2.Y = 0};
-      Achieve 'ZeroRadialVelocity' DefaultDC(ARIEL.SEL2.VX = 0, {Tolerance = 0.0001});
+SEL2dVBudget = sqrt(Injection.Element1^2 + VYGuess^2 + Injection.Element3^2);
+
+For 'Science at SEL2' I = 1:1:22;
+   Target 'Orbit Maintenance' DefaultDC {SolveMode = Solve, ExitMode = SaveAndContinue, ShowProgressWindow = true};
+      Vary 'Vary Radial Burn' DefaultDC(Correction.Element1 = 0, {Perturbation = 0.0001, Lower = 0, Upper = 0.05, MaxStep = 0.005, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+
+      Maneuver 'Execute Maintenance Burn' Correction(ARIEL);
+      Propagate 'Prop Back to Vertical Plane' SEL2Prop(ARIEL) {ARIEL.ElapsedDays = 100, ARIEL.SEL2.Y = 0};
+
+      Achieve 'Control Radial Drift' DefaultDC(ARIEL.SEL2.VX = 0, {Tolerance = 0.0001});
    EndTarget;  % For targeter DefaultDC
-   SEL2dVBudget = SEL2dVBudget + abs(SEL2Burn.Element1);
+   SEL2dVBudget = SEL2dVBudget + abs(Correction.Element1);
 EndFor;
