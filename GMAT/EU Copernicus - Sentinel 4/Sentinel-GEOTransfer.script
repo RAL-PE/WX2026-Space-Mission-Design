@@ -11,10 +11,10 @@ Sentinel4A.DateFormat = UTCGregorian;
 Sentinel4A.Epoch = '25 Jul 2025 11:59:28.000';
 Sentinel4A.CoordinateSystem = EarthMJ2000Eq;
 Sentinel4A.DisplayStateType = Keplerian;
-Sentinel4A.SMA = 6600.000000000001;
-Sentinel4A.ECC = 2.457601234778306e-16;
-Sentinel4A.INC = 5.159699999999978;
-Sentinel4A.RAAN = 55.00000000000001;
+Sentinel4A.SMA = 6600;
+Sentinel4A.ECC = 0;
+Sentinel4A.INC = 5.1597;
+Sentinel4A.RAAN = 55;
 Sentinel4A.AOP = 0;
 Sentinel4A.TA = 0;
 Sentinel4A.DryMass = 850;
@@ -74,9 +74,6 @@ GSDarmstrat.Temperature = 295.1;
 GSDarmstrat.Pressure = 1013.5;
 GSDarmstrat.Humidity = 55;
 GSDarmstrat.MinimumElevationAngle = 7;
-
-
-
 
 %----------------------------------------
 %---------- ForceModels
@@ -202,9 +199,9 @@ DC.Algorithm = NewtonRaphson;
 
 Create OpenFramesInterface EarthOrbitView;
 EarthOrbitView.SolverIterations = Current;
-EarthOrbitView.UpperLeft = [ 0 0.4985401459854015 ];
-EarthOrbitView.Size = [ 0.9979654120040692 0.4985401459854015 ];
-EarthOrbitView.RelativeZOrder = 1132;
+EarthOrbitView.UpperLeft = [ 0 0.4978102189781022 ];
+EarthOrbitView.Size = [ 0.9970986460348162 0.4978102189781022 ];
+EarthOrbitView.RelativeZOrder = 4610;
 EarthOrbitView.Maximized = false;
 EarthOrbitView.Add = {Sentinel4A, GSDarmstrat, Earth, Luna, Sun};
 EarthOrbitView.View = {OrbitView, EarthView, StationView};
@@ -249,8 +246,8 @@ EarthOrbitView.DrawFontPosition = {'Top-Right', 'Top-Right', 'Top-Right', 'Top-R
 Create GroundTrack GroundTrackPlot;
 GroundTrackPlot.SolverIterations = Current;
 GroundTrackPlot.UpperLeft = [ 0 0 ];
-GroundTrackPlot.Size = [ 0.9979654120040692 0.4985401459854015 ];
-GroundTrackPlot.RelativeZOrder = 1139;
+GroundTrackPlot.Size = [ 0.9975822050290135 0.4985401459854015 ];
+GroundTrackPlot.RelativeZOrder = 4616;
 GroundTrackPlot.Maximized = false;
 GroundTrackPlot.CentralBody = Earth;
 GroundTrackPlot.Add = {GSDarmstrat, Sentinel4A};
@@ -273,24 +270,10 @@ OrbitView.DefaultEye = [ -60000 -60000 60000 ];
 OrbitView.DefaultCenter = [ 0 0 0 ];
 OrbitView.DefaultUp = [ 0 0 1 ];
 OrbitView.SetCurrentLocation = On;
-OrbitView.CurrentEye = [ -90000.00000000003 -89999.99999999997 20000.00000000002 ];
-OrbitView.CurrentCenter = [ -1.455191522836685e-11 4.365574568510056e-11 3.637978807091713e-12 ];
+OrbitView.CurrentEye = [ -90000 -90000 20000 ];
+OrbitView.CurrentCenter = [ 0 0 0 ];
 OrbitView.CurrentUp = [ 0.1097642599896904 0.1097642599896904 0.9878783399072131 ];
 OrbitView.FOVy = 45;
-
-Create OpenFramesView fixed_View;
-fixed_View.ViewFrame = CoordinateSystem;
-fixed_View.ViewTrajectory = Off;
-fixed_View.InertialFrame = Off;
-fixed_View.SetDefaultLocation = On;
-fixed_View.DefaultEye = [ -24000 -60000 0 ];
-fixed_View.DefaultCenter = [ 0 0 0 ];
-fixed_View.DefaultUp = [ 0 0 1 ];
-fixed_View.SetCurrentLocation = On;
-fixed_View.CurrentEye = [ -24000 -59999.99999999999 0 ];
-fixed_View.CurrentCenter = [ 0 0 0 ];
-fixed_View.CurrentUp = [ 0 0 1 ];
-fixed_View.FOVy = 45;
 
 Create OpenFramesView EarthView;
 EarthView.ViewFrame = Sentinel4A;
@@ -303,18 +286,10 @@ EarthView.DefaultEye = [ 0 -7000 2000 ];
 EarthView.DefaultCenter = [ 0 0 0 ];
 EarthView.DefaultUp = [ 0 0 1 ];
 EarthView.SetCurrentLocation = On;
-EarthView.CurrentEye = [ 0 -7000.000000000002 1999.999999999999 ];
+EarthView.CurrentEye = [ 0 -7000 2000 ];
 EarthView.CurrentCenter = [ 0 0 0 ];
 EarthView.CurrentUp = [ 0 0.2747211278973779 0.9615239476408232 ];
 EarthView.FOVy = 45;
-
-Create OpenFramesView Earth_View2;
-Earth_View2.ViewFrame = Earth;
-Earth_View2.ViewTrajectory = Off;
-Earth_View2.InertialFrame = Off;
-Earth_View2.SetDefaultLocation = Off;
-Earth_View2.SetCurrentLocation = Off;
-Earth_View2.FOVy = 45;
 
 Create OpenFramesView StationView;
 StationView.ViewFrame = GSDarmstrat;
@@ -332,19 +307,6 @@ StationView.CurrentCenter = [ 0 0 0 ];
 StationView.CurrentUp = [ 0 0 1 ];
 StationView.FOVy = 45;
 
-Create OpenFramesView geoSat_View2;
-geoSat_View2.ViewFrame = Sentinel4A;
-geoSat_View2.ViewTrajectory = Off;
-geoSat_View2.InertialFrame = On;
-geoSat_View2.LookAtFrame = Earth;
-geoSat_View2.ShortestAngle = Off;
-geoSat_View2.SetDefaultLocation = Off;
-geoSat_View2.SetCurrentLocation = On;
-geoSat_View2.CurrentEye = [ 37.5 -2047.177734375 355.5 ];
-geoSat_View2.CurrentCenter = [ 37.5 711.75 355.5 ];
-geoSat_View2.CurrentUp = [ 0 0 1 ];
-geoSat_View2.FOVy = 45;
-
 %----------------------------------------
 %---------- Mission Sequence
 %----------------------------------------
@@ -352,9 +314,11 @@ BeginMissionSequence;
 Propagate 'Prop to Equator' EarthOrbitProp(Sentinel4A) {Sentinel4A.Z = 0, StopTolerance = 1e-05};
 
 Target 'Raise Apogee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'Vary Prograde Burn' DC(Transfer.Element1 = 1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary Prograde Burn' DC(Transfer.Element1 = 1, {Perturbation = .0001, Lower = 0, Upper = 3, MaxStep = .5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+
    Maneuver 'Execute Transfer Burn' Transfer(Sentinel4A);
    Propagate 'Prop To Apogee' EarthOrbitProp(Sentinel4A) {Sentinel4A.Apoapsis};
+
    Achieve 'Achieve RMAG' DC(Sentinel4A.RMAG = 45000, {Tolerance = .1});
 EndTarget;  % For targeter DC
 
@@ -362,24 +326,29 @@ Propagate 'Prop to Perigee' EarthOrbitProp(Sentinel4A) {Sentinel4A.Earth.Periaps
 Propagate 'Prop to Equator Crossing' EarthOrbitProp(Sentinel4A) {Sentinel4A.Z = 0, StopTolerance = 1e-05};
 
 Target 'Change Plane/Perigee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'Vary Prograde Burn' DC(Correction.Element1 = 0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
-   Vary 'Vary Normal Burn' DC(Correction.Element2 = 0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary Prograde Burn' DC(Correction.Element1 = 0.1, {Perturbation = .0001, Lower = -2, Upper = 2, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary Normal Burn' DC(Correction.Element2 = 0.1, {Perturbation = .0001, Lower = -2, Upper = 2, MaxStep = 0.5, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+
    Maneuver 'Execute Correction Burn' Correction(Sentinel4A);
    Propagate 'Prop to Perigee' EarthOrbitProp(Sentinel4A) {Sentinel4A.Periapsis};
+
    Achieve 'Achieve INC' DC(Sentinel4A.EarthMJ2000Eq.INC = 0, {Tolerance = .01});
    Achieve 'Achieve RMAG' DC(Sentinel4A.RMAG = 42195, {Tolerance = .001});
 EndTarget;  % For targeter DC
 Correction.Element2 = 0;
 
 Target 'Correct Position' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'Vary Prograde Burn' DC(Correction.Element1 = 0, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary Prograde Burn' DC(Correction.Element1 = 0, {Perturbation = .0001, Lower = -2, Upper = 2, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+
    Maneuver 'Execute Correction Burn' Correction(Sentinel4A);
    Propagate 'Prop to Perigee' EarthOrbitProp(Sentinel4A) {Sentinel4A.Periapsis};
+
    Achieve 'Achieve Longitude' DC(Sentinel4A.Earth.Longitude = 0, {Tolerance = 0.1});
 EndTarget;  % For targeter DC
 
 Target 'Lower Apogee' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
-   Vary 'Vary Prograde Burn' DC(Insertion.Element1 = -0.1, {Perturbation = .0001, Lower = -9.999999e300, Upper = 9.999999e300, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+   Vary 'Vary Prograde Burn' DC(Insertion.Element1 = -0.1, {Perturbation = .0001, Lower = -2, Upper = 2, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
+
    Maneuver 'Execute Insertion Burn' Insertion(Sentinel4A);
    Achieve 'Achieve Period' DC(Sentinel4A.Earth.OrbitPeriod = 86164.09, {Tolerance = .001});
 EndTarget;  % For targeter DC
