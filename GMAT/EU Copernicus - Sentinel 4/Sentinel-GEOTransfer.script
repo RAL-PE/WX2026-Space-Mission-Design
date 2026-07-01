@@ -8,13 +8,13 @@
 
 Create Spacecraft Sentinel4A;
 Sentinel4A.DateFormat = UTCGregorian;
-Sentinel4A.Epoch = '25 Jul 2025 11:59:28.000';
+Sentinel4A.Epoch = '1 Jul 2025 21:04:28.000';
 Sentinel4A.CoordinateSystem = EarthMJ2000Eq;
 Sentinel4A.DisplayStateType = Keplerian;
 Sentinel4A.SMA = 6600;
 Sentinel4A.ECC = 0;
 Sentinel4A.INC = 5.1597;
-Sentinel4A.RAAN = 55;
+Sentinel4A.RAAN = -55;
 Sentinel4A.AOP = 0;
 Sentinel4A.TA = 0;
 Sentinel4A.DryMass = 850;
@@ -57,23 +57,23 @@ Sentinel4A.EulerAngleSequence = '321';
 %---------- GroundStations
 %----------------------------------------
 
-Create GroundStation GSDarmstrat;
-GSDarmstrat.OrbitColor = [0 255 0];
-GSDarmstrat.TargetColor = DarkGray;
-GSDarmstrat.CentralBody = Earth;
-GSDarmstrat.StateType = Spherical;
-GSDarmstrat.HorizonReference = Sphere;
-GSDarmstrat.Location1 = 49.8692;
-GSDarmstrat.Location2 = 8.6198;
-GSDarmstrat.Location3 = 0;
-GSDarmstrat.Id = 'Darmstrat';
-GSDarmstrat.IonosphereModel = 'None';
-GSDarmstrat.TroposphereModel = 'None';
-GSDarmstrat.DataSource = 'Constant';
-GSDarmstrat.Temperature = 295.1;
-GSDarmstrat.Pressure = 1013.5;
-GSDarmstrat.Humidity = 55;
-GSDarmstrat.MinimumElevationAngle = 7;
+Create GroundStation GSDarmstadt;
+GSDarmstadt.OrbitColor = [0 255 0];
+GSDarmstadt.TargetColor = DarkGray;
+GSDarmstadt.CentralBody = Earth;
+GSDarmstadt.StateType = Spherical;
+GSDarmstadt.HorizonReference = Sphere;
+GSDarmstadt.Location1 = 49.8692;
+GSDarmstadt.Location2 = 8.6198;
+GSDarmstadt.Location3 = 0;
+GSDarmstadt.Id = 'Darmstadt';
+GSDarmstadt.IonosphereModel = 'None';
+GSDarmstadt.TroposphereModel = 'None';
+GSDarmstadt.DataSource = 'Constant';
+GSDarmstadt.Temperature = 295.1;
+GSDarmstadt.Pressure = 1013.5;
+GSDarmstadt.Humidity = 55;
+GSDarmstadt.MinimumElevationAngle = 7;
 
 %----------------------------------------
 %---------- ForceModels
@@ -173,7 +173,7 @@ ContactLocator.UseStellarAberration = true;
 ContactLocator.WriteReport = true;
 ContactLocator.RunMode = Automatic;
 ContactLocator.UseEntireInterval = true;
-ContactLocator.Observers = {GSDarmstrat};
+ContactLocator.Observers = {GSDarmstadt};
 ContactLocator.LightTimeDirection = Transmit;
 ContactLocator.LeftJustified = false;
 ContactLocator.ReportPrecision = 6;
@@ -203,7 +203,7 @@ EarthOrbitView.UpperLeft = [ 0 0.4978102189781022 ];
 EarthOrbitView.Size = [ 0.9970986460348162 0.4978102189781022 ];
 EarthOrbitView.RelativeZOrder = 4610;
 EarthOrbitView.Maximized = false;
-EarthOrbitView.Add = {Sentinel4A, GSDarmstrat, Earth, Luna, Sun};
+EarthOrbitView.Add = {Sentinel4A, GSDarmstadt, Earth, Luna, Sun};
 EarthOrbitView.View = {OrbitView, EarthView, StationView};
 EarthOrbitView.CoordinateSystem = EarthMJ2000Eq;
 EarthOrbitView.DrawObject = [ true false true true true ];
@@ -219,7 +219,6 @@ EarthOrbitView.DrawGrid = [ false false false false false ];
 EarthOrbitView.DrawLineWidth = [ 2 2 2 2 2 ];
 EarthOrbitView.DrawMarkerSize = [ 10 10 10 10 10 ];
 EarthOrbitView.DrawFontSize = [ 20 20 20 20 20 ];
-
 EarthOrbitView.Axes = On;
 EarthOrbitView.AxesLength = 12756.2726;
 EarthOrbitView.AxesLabels = On;
@@ -250,7 +249,7 @@ GroundTrackPlot.Size = [ 0.9975822050290135 0.4985401459854015 ];
 GroundTrackPlot.RelativeZOrder = 4616;
 GroundTrackPlot.Maximized = false;
 GroundTrackPlot.CentralBody = Earth;
-GroundTrackPlot.Add = {GSDarmstrat, Sentinel4A};
+GroundTrackPlot.Add = {GSDarmstadt, Sentinel4A};
 GroundTrackPlot.DataCollectFrequency = 1;
 GroundTrackPlot.UpdatePlotFrequency = 50;
 GroundTrackPlot.NumPointsToRedraw = 0;
@@ -292,7 +291,7 @@ EarthView.CurrentUp = [ 0 0.2747211278973779 0.9615239476408232 ];
 EarthView.FOVy = 45;
 
 Create OpenFramesView StationView;
-StationView.ViewFrame = GSDarmstrat;
+StationView.ViewFrame = GSDarmstadt;
 StationView.ViewTrajectory = Off;
 StationView.InertialFrame = Off;
 StationView.LookAtFrame = Sentinel4A;
@@ -335,8 +334,8 @@ Target 'Change Plane/Perigee' DC {SolveMode = Solve, ExitMode = DiscardAndContin
    Achieve 'Achieve INC' DC(Sentinel4A.EarthMJ2000Eq.INC = 0, {Tolerance = .01});
    Achieve 'Achieve RMAG' DC(Sentinel4A.RMAG = 42195, {Tolerance = .001});
 EndTarget;  % For targeter DC
-Correction.Element2 = 0;
 
+Correction.Element2 = 0;
 Target 'Correct Position' DC {SolveMode = Solve, ExitMode = DiscardAndContinue, ShowProgressWindow = true};
    Vary 'Vary Prograde Burn' DC(Correction.Element1 = 0, {Perturbation = .0001, Lower = -2, Upper = 2, MaxStep = .1, AdditiveScaleFactor = 0.0, MultiplicativeScaleFactor = 1.0});
 
